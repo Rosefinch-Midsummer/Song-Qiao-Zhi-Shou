@@ -1,0 +1,834 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>吃货的营养学修养 - Mdbook Template</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Mdbook Template</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="吃货的营养学修养"><a class="header" href="#吃货的营养学修养">吃货的营养学修养</a></h1>
+<ul>
+<li><a href="#%E7%AE%80%E4%BB%8B">简介</a>
+<ul>
+<li><a href="#%E8%AF%BE%E7%A8%8B%E6%A6%82%E8%BF%B0">课程概述</a></li>
+<li><a href="#%E6%8E%88%E8%AF%BE%E7%9B%AE%E6%A0%87">授课目标</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
+</ul>
+</li>
+<li><a href="#%E8%AF%BE%E7%A8%8B%E5%A4%A7%E7%BA%B2">课程大纲</a>
+<ul>
+<li><a href="#%E7%AC%AC%E4%B8%80%E8%AE%B2-%E7%81%AB%E9%94%85%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F">第一讲 火锅的正确打开方式</a>
+<ul>
+<li><a href="#11-%E4%B8%BB%E9%A3%9F%E6%80%8E%E4%B9%88%E5%90%83">1.1 主食怎么吃？</a></li>
+<li><a href="#12-%E8%82%89%E6%80%8E%E4%B9%88%E5%90%83">1.2 肉怎么吃？</a></li>
+<li><a href="#13-%E8%B0%83%E5%91%B3%E5%93%81%E6%80%8E%E4%B9%88%E5%90%83">1.3 调味品怎么吃？</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E6%9D%A5%E8%87%AA%E9%A5%AE%E6%96%99%E7%9A%84%E6%9A%B4%E5%87%BB">第二讲 来自饮料的暴击</a>
+<ul>
+<li><a href="#21-%E5%90%AB%E7%B3%96%E9%A5%AE%E6%96%99%E5%AF%B9%E6%88%91%E4%BB%AC%E7%9A%84%E5%BD%B1%E5%93%8D">2.1 含糖饮料对我们的影响</a></li>
+<li><a href="#22-%E5%A6%82%E4%BD%95%E5%BA%94%E5%AF%B9%E4%B9%B3%E7%B3%96%E4%B8%8D%E8%80%90%E5%8F%97">2.2 如何应对乳糖不耐受？</a></li>
+<li><a href="#23-%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E9%80%89%E6%8B%A9%E9%A5%AE%E6%96%99">2.3 如何正确选择饮料?</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E4%B8%89%E8%AE%B2-%E7%A7%91%E5%AD%A6%E5%87%8F%E9%87%8D%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8B">第三讲 科学减重，了解一下</a>
+<ul>
+<li><a href="#31-%E6%9C%89%E4%B8%80%E7%A7%8D%E8%83%96%E5%8F%AB%E9%9A%90%E5%BD%A2%E7%9A%84%E8%83%96">3.1 有一种胖叫隐形的胖</a></li>
+<li><a href="#32-%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E8%B6%8A%E5%87%8F%E8%B6%8A%E8%83%96">3.2 如何避免越减越胖？</a></li>
+<li><a href="#33-%E5%87%8F%E9%87%8D%E5%BF%85%E5%90%83%E7%9A%84%E9%A3%9F%E7%89%A9">3.3 减重必吃的食物</a></li>
+<li><a href="#34-%E5%87%8F%E8%82%A5%E8%8D%AF%E4%BB%A3%E9%A4%90%E7%B2%89%E5%92%8C%E5%87%8F%E9%87%8D%E6%89%8B%E6%9C%AF">3.4 减肥药、代餐粉和减重手术</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%97%98%E7%97%98%E8%82%8C%E8%AF%A5%E6%80%8E%E4%B9%88%E5%90%83">第四讲 痘痘肌该怎么吃？</a>
+<ul>
+<li><a href="#41-%E7%97%98%E7%97%98%E5%92%8C%E7%B3%96%E7%9A%84%E5%85%B3%E7%B3%BB">4.1 痘痘和糖的关系</a></li>
+<li><a href="#42-gi%E5%92%8Cgl">4.2 GI和GL</a></li>
+<li><a href="#43-%E8%94%AC%E8%8F%9C%E6%B0%B4%E6%9E%9C%E6%80%8E%E4%B9%88%E5%90%83">4.3 蔬菜水果怎么吃？</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E4%BA%94%E8%AE%B2-%E9%A3%9F%E7%89%A9%E7%9B%B8%E5%85%8B%E4%B8%8D%E5%AD%98%E5%9C%A8%E7%9A%84">第五讲 食物相克？不存在的</a>
+<ul>
+<li><a href="#51-%E9%A3%9F%E7%89%A9%E7%9B%B8%E5%85%8B%E7%9A%84%E4%BC%A0%E8%AF%B4">5.1 食物相克的传说</a></li>
+<li><a href="#52-%E7%9C%9F%E6%AD%A3%E7%9A%84%E9%A3%9F%E7%89%A9%E6%90%AD%E9%85%8D%E7%A6%81%E5%BF%8C">5.2 真正的食物搭配禁忌</a></li>
+<li><a href="#53-%E9%A4%90%E9%A6%86%E7%82%B9%E8%8F%9C%E5%AE%9E%E8%B7%B5%E6%93%8D%E4%BD%9C">5.3 餐馆点菜实践操作</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E5%85%AD%E8%AE%B2-%E9%A3%9F%E5%93%81%E5%AE%89%E5%85%A8%E6%87%82%E5%BE%97%E8%B6%8A%E5%A4%9A%E8%B6%8A%E5%AE%89%E5%85%A8">第六讲 食品安全，懂得越多越安全</a>
+<ul>
+<li><a href="#61-%E5%8F%AF%E4%BB%A5%E4%B8%8D%E6%94%BE%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82%E5%90%97">6.1 可以不放食品添加剂吗？</a></li>
+<li><a href="#62-%E9%A3%9F%E5%93%81%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%E8%83%8C%E5%90%8E%E7%9C%9F%E6%AD%A3%E7%9A%84%E5%A4%A7boss">6.2 食品安全问题背后真正的大BOSS</a></li>
+<li><a href="#63-%E9%9A%94%E5%A4%9C%E8%8F%9C%E5%88%B0%E5%BA%95%E8%83%BD%E4%B8%8D%E8%83%BD%E5%90%83">6.3 隔夜菜到底能不能吃？</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E4%B8%83%E8%AE%B2-%E4%BE%BF%E4%BE%BF%E7%9A%84%E6%95%85%E4%BA%8B">第七讲 便便的故事</a>
+<ul>
+<li><a href="#71-%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%A4%84%E7%90%86%E8%85%B9%E6%B3%BB">7.1 如何正确处理腹泻？</a></li>
+<li><a href="#72-%E8%82%A0%E9%81%93%E8%8F%8C%E7%BE%A4%E5%92%8C%E4%BE%BF%E7%A7%98">7.2 肠道菌群和便秘</a></li>
+<li><a href="#73-%E7%9B%8A%E7%94%9F%E8%8F%8C%E6%98%AF%E4%B8%87%E9%87%91%E6%B2%B9%E5%90%97">7.3 益生菌是万金油吗？</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E5%85%AB%E8%AE%B2-%E6%9C%8B%E5%85%8B%E5%85%BB%E7%94%9F%E5%92%8C%E5%81%A5%E5%BA%B7%E9%9B%B6%E9%A3%9F">第八讲 朋克养生和健康零食</a>
+<ul>
+<li><a href="#81-%E6%B2%B9%E8%84%82%E5%AE%B6%E6%97%8F%E4%B8%AD%E7%9A%84%E7%89%B9%E6%AE%8A%E6%88%90%E5%91%98">8.1 油脂家族中的特殊成员</a></li>
+<li><a href="#82-%E9%87%8D%E5%8F%A3%E5%91%B3%E5%BF%85%E7%9C%8B">8.2 重口味必看</a></li>
+<li><a href="#83-%E7%BE%8E%E5%91%B3%E5%92%8C%E5%81%A5%E5%BA%B7%E5%8F%AF%E4%BB%A5%E5%85%BC%E5%BE%97">8.3 美味和健康可以兼得</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="简介"><a class="header" href="#简介">简介</a></h1>
+<p>本课程是由四川大学华西临床医学院拍摄制作完成，是一门面向各专业本科生和全社会人士开设的科普宣传、营养健康教育的通识性课程。本课程打破传统授课的模式，通过小剧场的形式，将常见的营养学概念，饮食误区穿插在同学们的大学生活场景中，生动有趣，通俗易懂，让同学们在追剧的同时，完成本课学习。—— 课程团队</p>
+<h2 id="课程概述"><a class="header" href="#课程概述">课程概述</a></h2>
+<p><strong>本课程旨在为各专业本科生及全社会人士提供系统的，靠谱又实用的健康知识，主要介绍营养学的基本概念，营养与健康的关系以及人体的基本生理知识。本课程主要内容包括我国居民的膳食结构及存在的问题，中国居民膳食指南的实际应用，膳食宝塔的介绍，含糖饮料，科学减重，生酮饮食、减肥药、代餐粉、减重手术的介绍，皮肤管理与饮食，饮食禁忌辟谣，食源性疾病的预防，腹泻、便秘的处理，肠道菌群对人体的影响，零食的科学选择，正确地看待垃圾食品，特医食品、膳食补充剂、保健食品、防癌食物的介绍，如何健康地吃素食，地中海饮食，DASH饮食，糖尿病饮食，血脂异常饮食，高血压饮食等常见的营养学热点问题和同学们目前最关心的饮食话题。</strong></p>
+<h2 id="授课目标"><a class="header" href="#授课目标">授课目标</a></h2>
+<p><strong>希望通过对这门课程的学习，可以帮助选修本课程的同学建立良好的健康饮食习惯，走出饮食误区，并且带动周围的亲朋好友了解膳食与健康的关系，做到均衡营养，平衡膳食。</strong></p>
+<h2 id="参考资料"><a class="header" href="#参考资料">参考资料</a></h2>
+<p><a href="https://www.icourse163.org/course/SCU-1003253003">课程链接</a></p>
+<p><a href="http://dg.cnsoc.org/index.html">中国居民膳食指南2022版</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20240912000326.png" alt="" /></p>
+<p>膳食宝塔</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20240912000717.png" alt="" /></p>
+<p><a href="https://zhuanlan.zhihu.com/p/505540499">中国居民平衡膳食宝塔（2022）要点解读</a></p>
+<h1 id="课程大纲"><a class="header" href="#课程大纲">课程大纲</a></h1>
+<h2 id="第一讲-火锅的正确打开方式"><a class="header" href="#第一讲-火锅的正确打开方式">第一讲 火锅的正确打开方式</a></h2>
+<h3 id="11-主食怎么吃"><a class="header" href="#11-主食怎么吃">1.1 主食怎么吃？</a></h3>
+<p>只吃精白米面，容易缺乏维生素B1从而得脚气病。</p>
+<p>脚气病有两大类型。<strong>以神经系统表现为主称干性脚气病，以心力衰竭表现为主则称湿性脚气病</strong>。 前者表现为上升性对称性周围神经炎，感觉和运动障碍，肌力下降，部分病例发生足垂症及趾垂症，行走时呈跨阈步态等。 后者表现为软弱、疲劳、心悸、气急等。</p>
+<p><a href="https://www.chunyuyisheng.com/pc/article/111003">脚气、脚气病、香港脚傻傻分不清楚，有什区别？</a></p>
+<p><strong>脚气，即足癣</strong>，系真菌感染引起，其皮肤损害往往是先单侧（即单脚）发生，数周或数月后才感染到对侧。水疱主要出现在趾腹和趾侧，最常见于三四趾间，足底亦可出现，为深在性小水疱，可逐渐融合成大疱。足癣的皮肤损害有一特点，即边界清楚，可逐渐向外扩展。<strong>因病情发展或搔抓，可出现糜烂、渗液，甚或细菌感染，出现脓疱等</strong>。脚气是一种极常见的真菌感染性皮肤病，我国民间称之脚气或湿气脚气，主要病原菌是红色毛癣菌，另外还有絮状表皮癣菌、石膏样毛癣菌和玫瑰色毛癣菌等也可引起。<strong>足部多汗潮湿或鞋袜不通气等都可诱发本病。</strong> 皮肤癣菌常通过污染的澡堂、游泳池边的地板、浴巾、公用拖鞋、洗脚盆而传染。</p>
+<p><strong>脚气病的定义是维生素B1（硫胺素）缺乏病</strong>，是常见的营养素缺乏病之一。<strong>以神经系统表现为主称干性脚气病，以心力衰竭表现为主则称湿性脚气病。</strong> 前者表现为上升性对称性周围神经炎，感觉和运动障碍，肌力下降，部分病例发生足垂症及趾垂症，行走时呈跨阈步态等。后者表现为软弱、疲劳、心悸、气急等。与大家通常认为的脚气有根本上的区别。</p>
+<p>脚臭是由于潮湿闷热的环境造成足部皮肤细菌的生长。<strong>脚臭是由于潮湿闷热的环境造成足部皮肤细菌的生长</strong>，这些细菌可以分解皮肤的角质蛋白，及脚汗中的尿素、乳酸成分，形成含有臭味的各种代谢物：汗水中的尿素被细菌分解成氨；皮脂中的脂肪成分被金黄色葡萄球菌分解，会形成短链脂肪酸等；混合起来就会散发出令人不太愉快的气味。</p>
+<p>推荐吃全谷物的10个理由：</p>
+<ol>
+<li>增加营养摄入</li>
+<li>摄入更多的防病保健成分</li>
+<li>纤维含量高，有助降低肠癌风险</li>
+<li>有助控制餐后血糖</li>
+<li>饱腹感强，不容易饿，例如燕麦粥</li>
+<li>有助预防肥胖</li>
+<li>有效预防饭后困倦</li>
+<li>保障体力和思维能力</li>
+<li>帮助平衡激素水平</li>
+<li>帮助改善皮肤质量</li>
+</ol>
+<h3 id="12-肉怎么吃"><a class="header" href="#12-肉怎么吃">1.2 肉怎么吃？</a></h3>
+<p>适当多吃水产品，少吃畜产品</p>
+<p>人体必需氨基酸有九种，包括赖氨酸、异亮氨酸、缬氨酸、苯丙氨酸、蛋氨酸、色氨酸、苏氨酸、苏氨酰半胱氨酸和亮氨酸。</p>
+<p>人体非必需氨基酸有十一种，包括天冬氨酸、谷氨酸、精氨酸、甘氨酸、脯氨酸、组氨酸、丙氨酸、丝氨酸、脯氨酸、天冬酰胺和赖氨酸。</p>
+<p>必需氨基酸与非必需氨基酸的区别在于前者是人体无法合成的，必须通过饮食获取，而后者是人体可以自身合成的。必需氨基酸对于维持正常生理功能和健康至关重要，因此需要通过均衡的饮食摄入。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20240912001242.png" alt="" /></p>
+<p>氨基酸模式</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20240912002148.png" alt="" /></p>
+<p>大豆包括黄豆、黑豆和青豆。</p>
+<p>杂豆包括绿豆、红豆等，淀粉含量高，属于主食。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20240918000911.png" alt="" /></p>
+<h3 id="13-调味品怎么吃"><a class="header" href="#13-调味品怎么吃">1.3 调味品怎么吃？</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20240918001011.png" alt="" /></p>
+<p>吃盐太多导致的健康问题：</p>
+<ul>
+<li>胃癌</li>
+<li>高血压</li>
+<li>骨质疏松</li>
+<li>……</li>
+</ul>
+<p>排钠会带走更多的钙</p>
+<p>高盐摄入引起血压升高</p>
+<p>怎么减少食盐摄入量？</p>
+<ul>
+<li>多用醋、柠檬汁等酸性调味品替代一部分的盐和酱油，同时改善食物口感</li>
+<li>多用蒸烤煮等烹调方式，多使用食物天然的味道，少放盐，不要喝咸汤</li>
+<li>多吃有味道的菜，比如番茄、青椒、胡萝卜等</li>
+<li>凉拌菜时最后放盐</li>
+<li>使用酱油等要用点蘸的方式控制用量，而不是一次倒入</li>
+<li>最后喝汤，汤里不放盐，因为盐分会累积</li>
+</ul>
+<p>藏盐大户：</p>
+<p>酱油、咸菜、豆腐乳、味精、甜面酱、豆瓣酱、蚝油、小苏打、海苔、话梅、关东煮、方便面、白面包等都含有大量钠。</p>
+<p>营养标签</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20240918002216.png" alt="" /></p>
+<p>营养标签的组成</p>
+<p>营养成分表nutritioninformation标有食品营养成分名称、含量和占营养素参考数值（NRV）百分比的规范性表格。</p>
+<p>营养声称nutritionclaims对食品营养特性的描述声明或暗示，如能量水平、蛋白质含量声明等；营养声称包括含量声称和比较声称。</p>
+<p>营养成分功能声称nutrientfunctionclaims某营养成分可以维持人体正常生长、发育和正常生理功能等作用的声称。</p>
+<h2 id="第二讲-来自饮料的暴击"><a class="header" href="#第二讲-来自饮料的暴击">第二讲 来自饮料的暴击</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20240921001335.png" alt="" /></p>
+<h3 id="21-含糖饮料对我们的影响"><a class="header" href="#21-含糖饮料对我们的影响">2.1 含糖饮料对我们的影响</a></h3>
+<p>糖有广义和狭义之分。</p>
+<p>糖的危害：</p>
+<ul>
+<li>伤害大脑和记忆</li>
+<li>喝出糖尿病的高发风险</li>
+<li>增加卒中、心梗等心脑血管疾病发生风险</li>
+<li>增加血脂异常、非酒精性脂肪肝和痛风风险</li>
+<li>增加高血压风险</li>
+<li>增加超重和肥胖的发生</li>
+</ul>
+<h3 id="22-如何应对乳糖不耐受"><a class="header" href="#22-如何应对乳糖不耐受">2.2 如何应对乳糖不耐受？</a></h3>
+<p>日常生活中要不吃或少吃含糖饮食。</p>
+<p>酸奶等糖含量往往也不低。</p>
+<p>乳糖不耐受——喝了纯牛奶后发生腹胀、腹泻等情况。这种身体不能消化纯牛奶的情况，我们把它叫做乳糖不耐受，又称乳糖消化不良或乳糖吸收不良。</p>
+<h3 id="23-如何正确选择饮料"><a class="header" href="#23-如何正确选择饮料">2.3 如何正确选择饮料?</a></h3>
+<p>选择饮料三原则：</p>
+<ul>
+<li>尽量选择低能量、低糖的饮料</li>
+<li>含糖量相近时选择营养价值较高的品种</li>
+<li>喝了含糖饮料就不要再吃其他甜食</li>
+</ul>
+<p>有乳糖不耐的同学选择奶制品建议</p>
+<ol>
+<li>从半杯牛奶开始，等待30分钟至2小时，观察身体有没有消化道不适症状产生</li>
+<li>避免空腹饮奶</li>
+<li>选择酸奶和奶酪等奶制品</li>
+<li>如果觉得酸奶添加糖太多的话，可以选择舒化奶</li>
+<li>选择药物时，一定看看说明书</li>
+</ol>
+<p>预包装食品营养标签通则</p>
+<ul>
+<li>“低能量”=每100ml中的能量低于80kJ（约20kcal）</li>
+<li>“零能量”=每100ml能量低于17kJ（约4kcal）</li>
+<li>“低糖”=每100ml中的糖低于5%</li>
+<li>“无糖”=每100ml中的糖低于0.5%</li>
+</ul>
+<p>乳酸菌饮料含糖量高</p>
+<p>甜味剂是一种可以模拟天然糖类的化学物质，用于增加食品和饮料的甜味。甜味剂可以分为两类：天然甜味剂和人工甜味剂。</p>
+<ol>
+<li>
+<p>天然甜味剂：这类甜味剂是从天然来源提取的化合物，通常比人工甜味剂更昂贵。一些常见的天然甜味剂包括蔗糖、蜂蜜、果糖和葡萄糖。</p>
+</li>
+<li>
+<p>人工甜味剂：这类甜味剂是通过化学合成生产的，常用于无糖或低糖食品和饮料中。一些常见的人工甜味剂包括阿斯巴甜、糖精、环糊精和三氯蔗糖。</p>
+</li>
+</ol>
+<div class="table-wrapper"><table><thead><tr><th>天然甜味剂</th><th>人工合成甜味剂</th></tr></thead><tbody>
+<tr><td>葡萄糖、果糖、蔗糖、麦芽糖、淀粉糖和乳糖、甜菊糖、甘草、甘草酸二钠、甘草酸三钾和三钠等。</td><td>玉米糖浆，糖精、甜蜜素，安赛蜜，阿斯巴甜，阿力甜，纽甜，三氯蔗糖等。</td></tr>
+</tbody></table>
+</div>
+<p>喝无糖可乐可能刺激人体吸收更多的糖。</p>
+<p>尽管无糖可乐在减少糖分摄入方面具有优势，但过度饮用无糖可乐也可能存在一些潜在的健康危害，包括：</p>
+<ol>
+<li>
+<p>牙齿健康问题：无糖可乐中的碳酸饮料和酸性成分可能会损害牙齿的牙釉质，导致龋齿和牙齿敏感。</p>
+</li>
+<li>
+<p>骨质疏松：无糖可乐中的磷酸盐和咖啡因可能会对骨密度产生影响，增加患骨质疏松症的风险。</p>
+</li>
+<li>
+<p>代谢问题：某些无糖可乐中添加的人工甜味剂可能会对人体的代谢产生负面影响，可能与体重控制、胰岛素敏感度和食欲调节相关。</p>
+</li>
+<li>
+<p>肥胖风险：一些研究表明，长期饮用无糖可乐可能与增加肥胖风险相关，尽管这方面的研究仍在争议中。</p>
+</li>
+</ol>
+<p>总的来说，适量饮用无糖可乐可能不会对健康造成明显危害，但过度饮用和长期过量摄入可能会带来潜在的健康风险。建议在日常饮食中保持平衡，选择多样化的健康饮食。如果有特定健康问题或疾病，最好咨询医疗专业人士的建议。</p>
+<p>碳酸饮料是一种常见的饮品，但过度饮用碳酸饮料可能会带来一些健康危害，包括：</p>
+<ol>
+<li>
+<p>牙齿损伤：碳酸饮料中含有酸性物质，会腐蚀牙齿的牙釉质，导致牙齿敏感、牙齿龋齿和牙龈问题。</p>
+</li>
+<li>
+<p>肥胖和代谢问题：碳酸饮料中的高糖含量可能导致体重增加和肥胖，进一步增加患糖尿病、心血管疾病和其他代谢问题的风险。</p>
+</li>
+<li>
+<p>骨质疏松：碳酸饮料中的磷酸盐含量较高，可能影响钙的吸收，从而增加骨质疏松的风险。</p>
+</li>
+<li>
+<p>消化问题：碳酸饮料中的气泡和咖啡因可能引起消化不适、胃灼热、胃肠道问题等。</p>
+</li>
+<li>
+<p>肾脏问题：过量的碳酸饮料摄入可能增加肾脏负担，对肾脏功能造成影响。</p>
+</li>
+</ol>
+<p>因此，建议适度限制碳酸饮料的摄入量，尤其是对于儿童、青少年和患有特定健康问题的人群。选择饮用更健康的替代品，如白开水、茶、果汁或含气水等，有助于维护身体健康。如果有特定健康问题或疾病，最好咨询医疗专业人士的建议。</p>
+<p>咖啡是一种广泛消费的饮品，但过度饮用咖啡也可能会带来一些健康危害，包括：</p>
+<ol>
+<li>
+<p>咖啡因过量：咖啡中含有咖啡因，过量摄入咖啡因可能导致头痛、失眠、焦虑、心悸、胃肠不适等不良反应。</p>
+</li>
+<li>
+<p>消化问题：咖啡具有刺激性，过量饮用可能导致胃酸增多、胃灼热、胃溃疡和胃肠道不适。</p>
+</li>
+<li>
+<p>骨质疏松：咖啡中的咖啡因和某些成分可能影响钙的吸收，长期大量饮用咖啡可能增加骨质疏松和骨折风险。</p>
+</li>
+<li>
+<p>心血管问题：过度饮用咖啡可能影响心脏健康，增加心律不齐、心梗和高血压的风险。</p>
+</li>
+<li>
+<p>水分失衡：咖啡具有利尿作用，可能增加尿频和脱水的风险。</p>
+</li>
+<li>
+<p>成瘾问题：长期依赖咖啡因可能导致成瘾，戒断时可能出现戒断症状。</p>
+</li>
+</ol>
+<p>尽管咖啡具有一些潜在的健康危害，但适量饮用咖啡可能对健康有益，如提高警觉性、提神醒脑和增强运动表现等。建议适度饮用咖啡，并根据个人体质和健康状况合理控制摄入量。对于孕妇、哺乳期妇女、心血管疾病患者和其他特定人群，最好遵循医疗专业人士的建议。</p>
+<p>奶茶是一种受欢迎的饮品，但可能存在一些潜在的健康危害，尤其是对于高热量、高糖分和高咖啡因含量的奶茶。</p>
+<ol>
+<li>
+<p>高糖分：奶茶通常含有大量的糖分，过度摄入高糖饮品可能增加肥胖、糖尿病和心血管疾病的风险。</p>
+</li>
+<li>
+<p>高热量：奶茶中含有较多的牛奶、炼乳或奶精, 加上常用的糖浆、果味糖浆和泡沫奶盖等，会导致奶茶的热量较高，长期过量摄入可能导致体重增加。</p>
+</li>
+<li>
+<p>高咖啡因：一些奶茶中含有咖啡因，过量摄入咖啡因可能导致失眠、心悸、焦虑和胃肠不适等不良反应。</p>
+</li>
+<li>
+<p>特定人群慎饮：孕妇、哺乳期妇女、儿童和心血管疾病患者等特定人群，由于体质特殊或对咖啡因过敏，需特别注意控制奶茶摄入量。</p>
+</li>
+<li>
+<p>牙齿问题：奶茶中的糖分和酸性成分可能损害牙齿健康，导致龋齿和牙齿敏感。</p>
+</li>
+</ol>
+<p>为了减少奶茶的潜在危害，建议选择低糖、低脂、少加糖或不加糖的奶茶，注意控制摄入量，并保持适当的饮食平衡。此外，也可考虑选择茶类饮品或其他健康替代品。如果有特定健康问题或疾病，最好咨询医疗专业人士的建议。</p>
+<h2 id="第三讲-科学减重了解一下"><a class="header" href="#第三讲-科学减重了解一下">第三讲 科学减重，了解一下</a></h2>
+<h3 id="31-有一种胖叫隐形的胖"><a class="header" href="#31-有一种胖叫隐形的胖">3.1 有一种胖叫隐形的胖</a></h3>
+<p>BMI判断肥胖与否</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20240921001531.png" alt="" /></p>
+<p>这是一般成人的标准，老人的BMI要高于20（超重能降低死亡风险）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20240921001836.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20240921002028.png" alt="" /></p>
+<p>向心型肥胖和周围性肥胖是两种常见的肥胖类型，它们的定义和区别如下：</p>
+<ol>
+<li>
+<p>向心型肥胖：向心型肥胖也称为中心性肥胖或苹果型肥胖，是指脂肪主要分布在腹部和腰部等中心部位的一种肥胖类型。向心型肥胖的人体脂肪主要分布在腹部，围绕内脏器官，形成腹部肥胖的特征。向心型肥胖通常伴随着内脏脂肪的增加，增加患心血管疾病、2型糖尿病和其他慢性疾病的风险。</p>
+</li>
+<li>
+<p>周围性肥胖：周围性肥胖也称为梨型肥胖，是指脂肪主要分布在臀部、大腿和下半身等周围部位的一种肥胖类型。周围性肥胖的人体脂肪主要集中在下半身，形成臀部和大腿较为突出的外观。相比向心型肥胖，周围性肥胖的人患心血管疾病和其他慢性疾病的风险相对较低。</p>
+</li>
+</ol>
+<p>区别：</p>
+<ul>
+<li>主要脂肪分布部位不同：向心型肥胖的主要脂肪分布在腹部和腰部，周围性肥胖的主要脂肪分布在臀部、大腿和下半身。</li>
+<li>患病风险不同：向心型肥胖相对于周围性肥胖，患心血管疾病、2型糖尿病和其他慢性疾病的风险更高。</li>
+</ul>
+<p>了解个体的肥胖类型有助于更有效地采取控制体重和预防相关疾病的措施。最常用的测量方法是腰围和臀围比值（腰臀比），腰臀比愈大，向心型肥胖的可能性愈高。如果有肥胖或健康问题，最好向医疗专业人士寻求指导和建议。</p>
+<p>体脂率比BMI更重要。</p>
+<h3 id="32-如何避免越减越胖"><a class="header" href="#32-如何避免越减越胖">3.2 如何避免越减越胖？</a></h3>
+<p>基础代谢：人体经过10-12小时空腹和良好的睡眠、清醒仰卧、恒温条件下（一般为22-26摄氏度），无任何身体活动和紧张的思维活动，全身肌肉放松时的能量消耗。身体主要器官（脑、肝脏、肾脏和心脏）消耗的能量大约占到了人体基础代谢的一大半，剩余的能量分配给了肌肉、脂肪、消化系统等。</p>
+<p>肌肉含量很重要。</p>
+<p>节食方式的类型</p>
+<ol>
+<li>餐次减少型 （这种方式容易反弹）</li>
+<li>结构调整型</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20240922001111.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20240922001307.png" alt="" /></p>
+<p>生酮饮食：通过限制碳水化合物的摄入，形成饥饿性酮症，将甘油三酯分解转化为可溶的酮体从尿中排出，同时升高的血酮浓度还有抑制食欲的作用，可进一步减少食物及能量的摄入。但是，酮体有毒性，会造成酮症酸中毒，这是最危险的，因此临床上使用生酮饮食时会常规监测酮体水平。</p>
+<p>生酮饮食常见不良反应</p>
+<ul>
+<li>低血糖反应</li>
+<li>饥饿感</li>
+<li>面色潮红和心率加快</li>
+<li>皮肤瘙痒与风疹</li>
+<li>便秘等</li>
+</ul>
+<h3 id="33-减重必吃的食物"><a class="header" href="#33-减重必吃的食物">3.3 减重必吃的食物</a></h3>
+<p>原则：食物多样、营养均衡</p>
+<p>均衡饮食</p>
+<p>均衡膳食就是在食物多样化的前提下调控三大营养素供能比。简单说就是每天摄入 12种以上的食物，正确选择主食，适量优质蛋白，多吃蔬菜水果。</p>
+<p>每天至少要摄入800千卡能量</p>
+<p>控制能量进入身体速度的方法</p>
+<ol>
+<li>多选择全谷物、蔬菜和水果，同时尽量控制精白米面和添加糖的摄入</li>
+<li>改变进餐顺序</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20240922002509.png" alt="" /></p>
+<p>大学生食堂一日三餐：</p>
+<ul>
+<li>早餐：馒头+煮鸡蛋+牛奶/豆浆（无糖）</li>
+<li>午餐晚餐：蒸紫薯、红薯、山药、玉米</li>
+<li>荤菜素菜：尽量选择油少的</li>
+<li>外卖：油少、多青菜、鸡蛋、酸奶</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20240922002808.png" alt="" /></p>
+<p>肥胖的人尽量选择低冲击运动</p>
+<p>低冲击运动：对关节压力较小的运动，比如椭圆机、自行车、游泳，尤其是自由泳对膝关节压力较小。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20240922003413.png" alt="" /></p>
+<h3 id="34-减肥药代餐粉和减重手术"><a class="header" href="#34-减肥药代餐粉和减重手术">3.4 减肥药、代餐粉和减重手术</a></h3>
+<p>可以促进排毒的减肥茶不属于减肥药。减肥茶副作用非常大。</p>
+<p>减肥药主要有三种：</p>
+<ul>
+<li>抑制食欲类：例如西布曲明、安非他明（苯丙胺）</li>
+<li>调节激素类，例如二甲双胍</li>
+<li>抑制吸收类：例如奥利司他</li>
+</ul>
+<h2 id="第四讲-痘痘肌该怎么吃"><a class="header" href="#第四讲-痘痘肌该怎么吃">第四讲 痘痘肌该怎么吃？</a></h2>
+<h3 id="41-痘痘和糖的关系"><a class="header" href="#41-痘痘和糖的关系">4.1 痘痘和糖的关系</a></h3>
+<p>碳水化合物和糖的关系：因为一些不属于碳水化合物的分子也有同样的元素组成比例，如甲醛、乙酸等。因此,国际化学名词委员会在 1927年曾建议用“糖”一词来代替碳水化合物。</p>
+<p>糖的作用：</p>
+<ul>
+<li>提供能量</li>
+<li>构成组织结构及生理活性物质</li>
+<li>血糖调节作用</li>
+<li>节约蛋白质作用</li>
+<li>抗生酮作用</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20241015002114.png" alt="" /></p>
+<p>痘痘：又被称为痤疮，它是一种毛囊皮脂腺的炎症。学名“暗疮”，又称“青春痘”、“面疱”“粉刺”等。</p>
+<p>引起痤疮的原因主要有：</p>
+<ul>
+<li>摄入过多的反式脂肪酸（炸薯条、炸鸡腿、沙拉酱、饼干）</li>
+<li>大量地摄入精细的碳水化合物（面包、面条、玉米粉、小麦粉、果汁、碳酸饮料等）</li>
+</ul>
+<h3 id="42-gi和gl"><a class="header" href="#42-gi和gl">4.2 GI和GL</a></h3>
+<p>GI指的是食物的血糖指数（Glycemic Index），是衡量食物影响血糖升高程度的一个参数。食物的GI值越高，食用后血糖升高的速度越快。</p>
+<p>影响食物的GI值的因素包括：</p>
+<ol>
+<li>食物类型：主要是碳水化合物含量和类型，一般来说，高纤维、全谷类、豆类等食物的GI值较低，而精制、加工食品的GI值较高。</li>
+<li>食物加工方式：加工食品的GI值通常比未加工食品高，因为加工可能破坏食物纤维结构，使得碳水化合物更容易被吸收。</li>
+<li>食物的成熟度：水果和蔬菜的成熟度会影响其GI值，一般来说，越成熟的水果蔬菜其GI值越高。</li>
+<li>与其他食物的搭配：食物的搭配也会影响其GI值，例如如果将高GI值的食物与含有纤维的食物搭配食用，可以降低整体的GI值。</li>
+<li>烹饪方式：烹饪方式也可能会影响食物的GI值，比如炒熟的米饭相比于未加工的米饭其GI值可能更高。</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20241016002236.png" alt="" /></p>
+<p>糖尿病患者不宜喝熬煮时间过长的精白米粥。</p>
+<p>GL是指食物的血糖负荷（Glycemic Load），是对食物对血糖影响的一个综合指标，考虑到了食物的GI值和摄入量两个因素。GL值越低，说明食物的血糖影响越小。</p>
+<p>GL值的计算方法是：GL = GI值 × 实际摄入的碳水化合物含量（克）/ 100。通过计算GL值，可以更全面地评估食物对血糖的影响，为人们选择更健康的饮食提供指导。</p>
+<p>与单独考虑GI值相比，GL值更加客观和综合，因为它同时考虑了食物的GI值和摄入量，更能反映食物对血糖的实际影响。在控制血糖、减肥或者管理糖尿病等方面，GL值往往是更有价值的参考指标。</p>
+<p>长痘和高糖饮食有关，和吃辣无关。</p>
+<p>要有好皮相需要注意如下事项：</p>
+<ul>
+<li>保证能量摄入</li>
+<li>用健康食品如新鲜水果、无糖酸奶、无糖黑巧克力代替甜品</li>
+<li>不要使用含糖酱汁如番茄酱</li>
+<li>慎选低脂食品</li>
+<li>少吃精加工食物</li>
+<li>警惕「健康食品」如蔓越莓水果干</li>
+<li>留意食品标签</li>
+<li>进食足量的蔬菜水果</li>
+<li>注意防晒</li>
+<li>适宜运动</li>
+<li>充足睡眠</li>
+</ul>
+<h3 id="43-蔬菜水果怎么吃"><a class="header" href="#43-蔬菜水果怎么吃">4.3 蔬菜水果怎么吃？</a></h3>
+<p>蔬菜水果与健康有什么关系？</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20241031002508.png" alt="" /></p>
+<p>植物化学物生理功能</p>
+<ul>
+<li>抗氧化作用</li>
+<li>调节免疫力</li>
+<li>抗感染</li>
+<li>降低胆固醇</li>
+<li>延缓衰老</li>
+</ul>
+<p>蔬菜和水果能不能互换呢？</p>
+<p>什么时候吃水果最好？</p>
+<p>机体的消化能力与消化液的分泌以及胃肠的蠕动有关，而与进食的时间关系并不大。</p>
+<h2 id="第五讲-食物相克不存在的"><a class="header" href="#第五讲-食物相克不存在的">第五讲 食物相克？不存在的</a></h2>
+<h3 id="51-食物相克的传说"><a class="header" href="#51-食物相克的传说">5.1 食物相克的传说</a></h3>
+<p>柿子和螃蟹不能同吃？分清生柿子和熟柿子</p>
+<p>虾和维生素C不能同吃？注意吃虾量</p>
+<p>豆浆和鸡蛋不能同吃？大豆中没有胰蛋白酶。豆浆、鸡蛋加热不充分可能影响健康</p>
+<p>胡萝卜和白萝卜不能同吃？</p>
+<p>马肉和木耳不能同吃？</p>
+<p>墨鱼和茄子不能同吃？</p>
+<p>豆腐和蜂蜜不能同吃？</p>
+<p>鸡肉和菊花不能同吃？</p>
+<p>酸奶和香蕉不能同吃？</p>
+<h3 id="52-真正的食物搭配禁忌"><a class="header" href="#52-真正的食物搭配禁忌">5.2 真正的食物搭配禁忌</a></h3>
+<p>饮食后身体不适原因可能是什么？</p>
+<ol>
+<li>食物中毒</li>
+<li>食物过敏</li>
+<li>食物不耐受</li>
+<li>长期大量服用膳食补充剂</li>
+<li>其他疾病</li>
+</ol>
+<p>方便面+火腿肠：高油高盐</p>
+<p>改进：1.倒掉第一次泡面的水。2.酱料放一半。3.搭配青菜、鸡蛋吃。</p>
+<p>青椒土豆丝炒饭：主食含量过高</p>
+<p>改进：增加蔬菜、肉蛋。</p>
+<p>白粥+咸菜：营养价值很低，</p>
+<p>腌制20天以上的咸菜，亚硝酸盐含量较低。别顿顿吃咸菜，它再好吃也替不了新鲜蔬菜。如果这顿吃咸菜，其他菜要少放盐。</p>
+<h3 id="53-餐馆点菜实践操作"><a class="header" href="#53-餐馆点菜实践操作">5.3 餐馆点菜实践操作</a></h3>
+<p>高盐、高脂、高糖、品种单一的饮食才是真正的健康隐患</p>
+<h2 id="第六讲-食品安全懂得越多越安全"><a class="header" href="#第六讲-食品安全懂得越多越安全">第六讲 食品安全，懂得越多越安全</a></h2>
+<h3 id="61-可以不放食品添加剂吗"><a class="header" href="#61-可以不放食品添加剂吗">6.1 可以不放食品添加剂吗？</a></h3>
+<p>追求低风险而不是零风险。</p>
+<p>食品添加剂定义：为改善食品品质、色、香、味以及防腐和加工工艺的需要而加入食品中的化学合成物质或天然物质。</p>
+<p>常见的食品添加剂</p>
+<ul>
+<li>防腐剂：常用的有苯甲酸钠、山梨酸钾、二氧化硫、乳酸等。用于果酱、蜜饯等的食品加工中</li>
+<li>抗氧化剂：与防腐剂类似，可延长食品的保质期。常用的有维C等。</li>
+<li>着色剂：常用的合成色素有胭脂红、苋菜红、柠檬黄、靛蓝等。它可改变食品的外观，使其增强食欲。</li>
+<li>增稠剂和稳定剂：可改善或稳定冷饮食品的物理性状，使食品外观润滑细腻。它们使冰淇淋等冷冻食品长期保持柔软、疏松的组织结构。</li>
+<li>营养强化剂：可增强和补充食品的某些营养成分如矿物质和微量元素（维生素、氨基酸、无机盐等）。各种婴幼儿配方奶粉就含有各种营养强化剂。</li>
+<li>膨松剂：部分糖果和巧克力中添加膨松剂，可促使糖体产生二氧化碳，从而起到膨松的作用。常用的膨松剂有碳酸氢钠、碳酸氢铵、复合膨松剂等。</li>
+<li>甜味剂：常用的人工合成的甜味剂有糖精钠、甜蜜素等。目的是增加甜味感。</li>
+<li>酸味剂：部分饮料、糖果等常采用酸味剂来调节和改善香味效果。常用柠檬酸、酒石酸、苹果酸、乳酸等。</li>
+<li>香料：有合成的，也有天然的，香型很多。我们常吃的各种口味的巧克力，生产过程中广泛使用各种香料，使其具有各种独特的风味。</li>
+</ul>
+<p>不能抛开剂量谈毒性~</p>
+<p>没有食品添加剂，就没有现在的食品工业~</p>
+<h3 id="62-食品安全问题背后真正的大boss"><a class="header" href="#62-食品安全问题背后真正的大boss">6.2 食品安全问题背后真正的大BOSS</a></h3>
+<p>合理使用食品添加剂比如营养强化剂不仅会使食物的品质更好，也会增强食品本身的营养价值。</p>
+<p>例子：高钙牛奶、铁强化酱油</p>
+<p>威胁排名：</p>
+<ol>
+<li>食源性疾病</li>
+<li>化学性污染：重金属污染、农药残留、天然毒素</li>
+<li>非法添加和滥用食品添加剂</li>
+</ol>
+<p>根据世界卫生组织的定义，食源性疾病是指病原物质通过食物进入人体引发的中毒性或感染性疾病。</p>
+<p>食源性疾病中98.5%是致病微生物污染引起的，其发病率居各类疾病总发病率的前列，是全世界公认的头号难题。</p>
+<p>食源性疾病是指人体摄入了含有生物性、化学性有毒有害物质的食物或把有毒有害物质当做食物摄入后所出现的非传染性急性或亚急性疾病。</p>
+<p>典型例子：人畜共患病、肠道传染病、寄生虫病、食物中毒</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20241102000726.png" alt="" /></p>
+<p>食物中毒的发病与摄入食物有关发病急，临床症状大多以恶心、呕吐、腹痛、腹泻等急性胃肠道症状为主，易集体发病，人与人之间一般无传染性，夏秋季是食物中毒的高发季节。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20241102000817.png" alt="" /></p>
+<p>真菌毒素性食物中毒，是指进食被产毒真菌及其毒素污染的食物，而引起的食物中毒。发病率较高，病死率因真菌种类而异。如赤霉病麦、霉变甘蔗中毒等。</p>
+<p>有毒动植物性食物中毒指，误食有毒动植物或摄入因加工、烹调不当，未除去有毒成分的动植物而引起的中毒。比如发芽的土豆。</p>
+<p>化学性食物中毒，指误食有毒化学物质或食入被其污染的食物，而引起的中毒，发病率和病死率均较高，如亚硝酸盐、农药等引起的食物中毒。</p>
+<h3 id="63-隔夜菜到底能不能吃"><a class="header" href="#63-隔夜菜到底能不能吃">6.3 隔夜菜到底能不能吃？</a></h3>
+<p>隔夜菜不是单指放了一夜的饭菜，凡是放置时间超过8~10小时的，都算隔夜菜了。大家常说的隔夜可能产生有害物，其实说的是蔬菜。</p>
+<p>蔬菜中含有的亚硝酸盐变为亚硝酸胺——&gt;致癌</p>
+<p>硝酸盐日允许摄入量为0~5mg/kg体重</p>
+<p>亚硝酸盐日允许摄入量为0～0.2mg/kg体重</p>
+<p>亚硝酸盐的毒性较强，人中毒剂量为0.3~ 0.5克，致死量为3克。而正常人只要不过量摄入隔夜饭菜，其中亚硝酸盐摄入就不会超标。</p>
+<p>反复煮沸的水亚硝酸盐含量会微量增加。</p>
+<p>研究表明，致癌物的形成，与烧烤的温度、烤的时间、肉中脂肪的含量、形成的烟雾、还有肉的形态等，都有关系。在美味面前，谁都有享受的权利。为了健康，要少吃甚至不吃烟熏食品。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20241102001820.png" alt="" /></p>
+<h2 id="第七讲-便便的故事"><a class="header" href="#第七讲-便便的故事">第七讲 便便的故事</a></h2>
+<h3 id="71-如何正确处理腹泻"><a class="header" href="#71-如何正确处理腹泻">7.1 如何正确处理腹泻？</a></h3>
+<p>腹泻是指大便次数增多，便秘次数减少，粪便呈液体或半液态状态，并且排便时常伴有腹部胀气或腹痛等症状。腹泻的病因非常多样，可能是由于感染、食物中毒、药物副作用、消化系统疾病等引起的。</p>
+<p>特征：</p>
+<ul>
+<li>每天排便3次以上</li>
+<li>含水量增加</li>
+<li>每天排粪便总量超过300g</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20241105001553.png" alt="" /></p>
+<p>急性腹泻是指腹泻症状发生时间短，通常在一周内。急性腹泻通常是由于感染或食物中毒引起的，症状较为明显和突然，严重的患者可能会出现呕吐、发热等问题。在大多数情况下，急性腹泻是自限性疾病，通过适当的治疗和饮食管理，症状通常会在短时间内缓解。</p>
+<p>人体水分的吸收与排泄主要通过肠道和肾脏完成。</p>
+<p>在肠道中，水分主要被吸收进入血液中。大部分水分是在小肠吸收的，主要通过细胞间隙和细胞内的通道进入血液。这是因为小肠表面有许多微绒毛和细胞间的连接处被调控得很严密，方便水分的吸收。另外，肠道内的渗透压决定了水分的吸收速度，当渗透压不平衡时，水分会自动通过渗透进入血液，完成水分的吸收过程。</p>
+<p>在肾脏中，水分主要通过肾小管的重吸收完成。尿液从肾小球滤出后，其中的水分和溶质在肾小管中再次被吸收。肾小管细胞对水的重吸收主要是通过肾单位的调控，调节尿液中水分的含量，使其满足人体的水量需求。此外，抗利尿激素如抗利尿素等也对肾小管细胞的通透性和脂质运输有一定的影响，从而影响水的吸收过程。</p>
+<p>综上所述，人体水分的吸收和重吸收过程是在肠道和肾脏中相互协调和配合完成的。通过细胞间的通道和渗透压的调节，以及肾脏的重吸收机制，确保了人体水分的平衡和稳定。</p>
+<p>腹泻按病因可分为</p>
+<ul>
+<li>感染性腹泻：在夏季更常见，多由细菌、真菌、病毒感染或集体食物中毒造成</li>
+<li>消化性腹泻：由于消化不良、吸收不良或暴饮暴食而引起</li>
+<li>激惹性腹泻：常由外界的各种刺激所致，如寒冷、水土不服、油腻或辛辣食物刺激等</li>
+<li>菌群失调性腹泻</li>
+<li>激素性腹泻：因变态反应或肠肿瘤产生过多的激素或体液类物质所致</li>
+<li>药物的不良反应</li>
+</ul>
+<p>缓解和治疗</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20241102002504.png" alt="" /></p>
+<h3 id="72-肠道菌群和便秘"><a class="header" href="#72-肠道菌群和便秘">7.2 肠道菌群和便秘</a></h3>
+<p>便秘表现为每周排便次数少于三次、粪便干硬、排便困难。便秘可分为器质型便秘和功能型便秘。后者主要因不良生活习惯如排便习惯、饮食习惯及精神压力等引起，而前者包括由直肠、肛门病变等器质性疾病造成。便秘在所有人群中普遍存在，发病率为2%~28%。随着年龄的增长，患病率会显著增加，尤以老年女性和怀孕女性为高危人群。</p>
+<p>便秘的主要症状包括排便次数减少、粪便干硬和排便困难。这些症状经常会伴有腹部胀痛、食欲减退、疲乏无力等。对于儿童来说，他们的便秘可能会伴有行为变化，如抑制排便行为以避免疼痛。
+便秘的治疗主要以改变生活方式和药物治疗为主，如增加膳食纤维的摄入、增加饮水量以及适量运动。药物治疗包括服用泻药，如聚卡波非钙、小麦纤维素等。当上述方法无效，且症状严重影响患者生活质量时，可选择手术治疗。治疗重点是以缓解症状、恢复正常的肠道动力和排便功能为主。</p>
+<p>便秘的预后主要取决于患者的生活习惯是否得到改善、是否存在病理生理的改变等因素。对于排便障碍型便秘，治疗效果通常良好，而慢传输型疗效稍差。但长期便秘可能导致并发症，如痔疮、肛裂和直肠脱垂等。</p>
+<p>不能乱用通便茶，因为通便茶很多都含有泻药成分。</p>
+<p>菌群失调可能引起腹泻，也可能引起便秘。</p>
+<p>肠道菌群，是人体肠道的正常微生物，如双歧杆菌，乳酸杆菌等能合成多种人体生长发育必须的维生素，如B族维生素（维生素B1、B2、B6、B12），维生素K，烟酸、泛酸等，还能利用蛋白质残渣合成必需氨基酸，如苯丙氨酸、缬氨酸和苏氨酸等，并参与糖类和蛋白质的代谢，同时还能促进铁、镁、锌等矿物元素的吸收。这些营养物质对人类的健康有着重要作用，一旦缺少会引起多种疾病。</p>
+<p>人体肠道内寄生着10万亿个细菌，它们能影响体重和消化能力、抵御感染和自体免疫疾病的患病风险，还能控制人体对癌症治疗药物的反应。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20241105002242.png" alt="" /></p>
+<p>肠道菌群和人体健康的联系</p>
+<ol>
+<li>肠道菌群的存在能通过自身天然屏障维持肠上皮的完整性，阻止病原菌入侵人体</li>
+<li>肠道微生物还可以通过调节肠道粘膜分泌抗体作用于肠道免疫系统，并进一步影响天然免疫和获得性免疫，因此肠道微生物又被认为是人体最大的“免疫器官”</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20241105002523.png" alt="" /></p>
+<p>如何通过饮食调节来解决便秘的问题呢？</p>
+<ol>
+<li>保证有足够的食物摄入量</li>
+<li>保证充足的膳食纤维的摄入</li>
+<li>保证充足的水的摄入</li>
+<li>保证良好的心情</li>
+<li>保证充足的肠道蠕动</li>
+</ol>
+<h3 id="73-益生菌是万金油吗"><a class="header" href="#73-益生菌是万金油吗">7.3 益生菌是万金油吗？</a></h3>
+<p>益生菌种类及形态多样。</p>
+<p>益生菌发挥作用，必须满足三个条件：</p>
+<ol>
+<li>必须是特定功能的细菌</li>
+<li>有足够的量达到胃肠</li>
+<li>对人体产生明确的健康好处</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20241107001317.png" alt="" /></p>
+<p>肠道菌的种类和状态跟人体的某些生理指标有关<strong>不等于</strong>补充了这种细菌就能够改善这些生理指标</p>
+<p>益生菌可能导致机体产生的不良反应：</p>
+<ol>
+<li>细菌性和真菌性脓毒血症</li>
+<li>促进有害代谢活动过度刺激免疫</li>
+<li>胃肠道反应及基因转移</li>
+</ol>
+<p>调节肠道菌群更简单有效的方法：</p>
+<ul>
+<li>保证充足膳食纤维摄入</li>
+<li>均衡饮食</li>
+</ul>
+<h2 id="第八讲-朋克养生和健康零食"><a class="header" href="#第八讲-朋克养生和健康零食">第八讲 朋克养生和健康零食</a></h2>
+<h3 id="81-油脂家族中的特殊成员"><a class="header" href="#81-油脂家族中的特殊成员">8.1 油脂家族中的特殊成员</a></h3>
+<p><img src="https://pic1.zhimg.com/v2-4eeb471156d56246d38bb95cb984b1f8_1440w.jpg" alt="朋克养生" /></p>
+<p>黄瓜薯片中没有黄瓜就像老婆饼中没有老婆一样~</p>
+<p>甘油三酯（triglycerides）是一种脂肪的主要形式，也是脂肪酸与甘油结合形成的化合物。它在人体内广泛存在于血液和组织中，是主要的能量来源之一。</p>
+<p>油脂是由甘油与脂肪酸形成的化合物，其中大部分是甘油三酯。因此，油脂本质上就是由甘油三酯组成的。</p>
+<p>总的来说，甘油三酯是脂肪的主要形式，而油脂则是脂肪酸与甘油结合形成的一种脂质。甘油三酯是油脂的主要成分之一。</p>
+<p>饱和脂肪酸和不饱和脂肪酸是脂肪酸的两种主要类型。</p>
+<p>饱和脂肪酸是指分子中所有碳原子上均与氢原子相连，没有双键。这使得饱和脂肪酸在室温下呈固态状态，如动物脂肪和椰子油。</p>
+<p>不饱和脂肪酸则是指分子中存在有一个或多个碳-碳双键的脂肪酸，造成碳链不饱和。不饱和脂肪酸根据双键的数量和位置可分为单不饱和脂肪酸和多不饱和脂肪酸。不饱和脂肪酸通常是液态状态，在植物油、鱼油等中广泛存在。</p>
+<p><strong>不饱和脂肪酸比饱和脂肪酸更有益于健康，有助于降低胆固醇水平、减少心血管疾病风险。因此，建议在饮食中适量摄入不饱和脂肪酸，限制饱和脂肪酸的摄入。</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20241112001941.png" alt="" /></p>
+<p>饱和脂肪酸特点：</p>
+<ul>
+<li>参与人体内胆固醇的合成</li>
+<li>摄入量超标时容易增加心血管疾病风险</li>
+<li>不利于维持正常的血脂代谢</li>
+<li>室温下很容易呈凝固态；闻着香、吃着也香</li>
+</ul>
+<p>不饱和脂肪酸包括单不饱和脂肪酸和多不饱和脂肪酸。</p>
+<p><strong>多不饱和脂肪酸是包括了人体自身无法合成，必需从膳食中供给的必需脂肪酸，也是就亚油酸和亚麻酸。</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20241112001843.png" alt="" /></p>
+<p>不饱和脂肪酸特点：</p>
+<ul>
+<li>不参与人体内胆固醇的合成</li>
+<li>不容易增加心血管疾病风险</li>
+<li>有利于维持正常的血脂代谢</li>
+<li>室温下很容易呈液态</li>
+</ul>
+<p>反式脂肪酸是一种特殊类型的不饱和脂肪酸，其中的碳链中至少有一个双键位于反式构象（trans构象）。这种构象使得反式脂肪酸在化学结构上呈现直拉直的形状，不像顺式构象（cis构象）的不饱和脂肪酸那样弯曲。</p>
+<p>反式脂肪酸主要来自于加工食品中的部分氢化植物油，如人造黄油、薯片、甜点、快餐等。反式脂肪酸使得这些食品在质地、口感和口感上更符合消费者的口味需求，但长期摄入过量的反式脂肪酸会增加心血管疾病、胆固醇水平异常等健康风险。</p>
+<p>因此，建议尽量避免摄入过多的反式脂肪酸，选择富含健康的不饱和脂肪酸的食物，如植物油、坚果、鱼类等，有助于维护身体健康。</p>
+<p>反式脂肪酸特点：</p>
+<ul>
+<li>熔点高</li>
+<li>氧化稳定性好</li>
+<li>货架期长</li>
+<li>风味独特</li>
+<li>口感更佳</li>
+<li>成本更低廉</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20241112002223.png" alt="" /></p>
+<p>WHO声称：摄入反式脂肪会导致患心脏疾病的发生风险上升21%，早死的风险上升28%：部分氢化植物油会导致炎症以及内皮功能障碍，这些状况都是动脉粥样硬化和动脉血栓的先期症状；全球每年约有50万人死于反式脂肪所引发的心血管疾病。</p>
+<p>反式脂肪损害健康的前提是“长期过量摄入”，并且，更多来自加工来源的反式脂肪，而非天然来源的（动物肉、奶类）。</p>
+<p>WHO建议：每日摄取的反式脂肪总量应该不超过一个人每日膳食总能量摄入的1%。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost04/img/20241107003113.png" alt="" /></p>
+<p>食品标签中反式脂肪酸含量为0，不代表其中反式脂肪酸含量真的为0。因为国标GB28050-2011规定食品中反式脂肪酸含量≤0.3g/100g时，可标示为0。</p>
+<h3 id="82-重口味必看"><a class="header" href="#82-重口味必看">8.2 重口味必看</a></h3>
+<p>如何远离反式脂肪？</p>
+<ul>
+<li>学会阅读食品标签</li>
+<li>少买少吃一一加工食品</li>
+<li>远离高温烹炸</li>
+<li>避免“累积”或“叠加”</li>
+</ul>
+<p>学会阅读食品标签：检查外包装上的配料表及营养成分表，警惕配料表中穿着“马甲”的反式脂肪；</p>
+<p>氢化油脂在标签配料表中常见的马甲”包括：氢化XX油、部分氢化 XX油、XX起酥油、人造XX油、麦淇淋、植物黄油、酥皮油等。</p>
+<p>2012年国家食品安全风险评估专家委员会，对我国居民反式脂肪摄入水平进行了评估，我们吃进去的反式脂肪大约有29%来自牛羊肉、奶制品，其余71%来自于各种加工食品。</p>
+<p>高盐食品=超过钠30%NRV=盐含量&gt;600mg/100g</p>
+<p>有些食物不咸但是含盐量很高比如果脯蜜饯类、干果零食类、饼干薯片类、肉类加工类、腐乳、咸菜、泡菜等</p>
+<p>红枣味酸奶和红枣味冰淇淋都不是健康的食品。</p>
+<h3 id="83-美味和健康可以兼得"><a class="header" href="#83-美味和健康可以兼得">8.3 美味和健康可以兼得</a></h3>
+<p>怎么识别高糖食物？</p>
+<ul>
+<li>看配料表</li>
+<li>看营养成分</li>
+</ul>
+<p>生活中有哪些常见的高糖食品？</p>
+<p>含糖饮料、山楂片、果丹皮等
+搭配蔬菜能吃得更健康。</p>
+<p>选择零食三原则：美食、营养和保护</p>
+<p>健康零食：原味坚果、水果干、蔬菜干和水果拌酸奶</p>
+<p>沒有垃圾的食品，只有垃圾的吃法。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../营养.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../体育运动/体育运动.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../营养.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../体育运动/体育运动.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

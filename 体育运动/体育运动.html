@@ -1,0 +1,601 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>体育运动 - Mdbook Template</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Mdbook Template</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="体育运动"><a class="header" href="#体育运动">体育运动</a></h1>
+<ul>
+<li><a href="#%E7%90%86%E8%AE%BA%E8%80%83%E8%AF%95">理论考试</a>
+<ul>
+<li><a href="#%E7%90%86%E8%AE%BA%E8%80%83%E8%AF%95%E5%8D%95%E9%80%89%E9%A2%98">理论考试单选题</a></li>
+<li><a href="#%E7%90%86%E8%AE%BA%E8%80%83%E8%AF%95%E5%88%A4%E6%96%AD%E9%A2%98">理论考试判断题</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="理论考试"><a class="header" href="#理论考试">理论考试</a></h2>
+<h3 id="理论考试单选题"><a class="header" href="#理论考试单选题"><strong>理论考试单选题</strong></a></h3>
+<ol>
+<li>以下哪条不属于健康标准？    答案：C</li>
+</ol>
+<p>A；生理健康       B；心理健康      C；精神健康       D；以上都是</p>
+<ol start="2">
+<li>闭和性肌肉、韧带撕裂触及损伤处时有（）。   答案：A</li>
+</ol>
+<p>A；凹陷感和剧烈疼痛                             B；表面凸起和剧烈疼痛</p>
+<p>C；表面平坦和剧烈疼痛                         D；表面不变化仅皮下淤血</p>
+<ol start="3">
+<li>健身锻炼是属于 （  ）锻炼的范畴。     答案：C</li>
+</ol>
+<p>A；力量耐力     B；无氧耐力      C；有氧耐力      D；速度耐力</p>
+<ol start="4">
+<li>踝关节韧带扭伤占运动损伤总数的（），在关节韧带扭伤中占首位。  答案：C</li>
+</ol>
+<p>A；1%       B；5%       C；8%        D；10&amp;</p>
+<ol start="5">
+<li>最大力量练习时，它的负荷强度一般掌握在（）。   答案：C</li>
+</ol>
+<p>A；50%～60%      B；60%～70%       C；80%～95%      D；75%～90%</p>
+<ol start="6">
+<li>运动中腹痛多数在中长跑时产生，主要是因为准备活动不充分，开始运动过于剧烈，或者跑的过快，内脏器官尚没有达到竞赛状态，致使（） 功能失调，引起腹痛。  答案：A</li>
+</ol>
+<p>A；脏腑         B；呼吸         C；血液循环         D；精神紧张</p>
+<ol start="7">
+<li>决定运动负荷的因素是（）。   答案：D</li>
+</ol>
+<p>A；运动强度和运动频率                               B；运动速度和运动时间</p>
+<p>C；运动节奏和运动时间                               D；运动强度和运动时间</p>
+<ol start="8">
+<li>对运动效果和人体运动安全有直接影响的因素是（）。     答案：D</li>
+</ol>
+<p>A；运动频率      B；运动时间       C；运动节奏        D；运动强度</p>
+<ol start="9">
+<li>奥林匹克标志五环含意是（）。       答案：B</li>
+</ol>
+<p>A；五种颜色       B；五大洲的团结      C；五个运动项目        D；五大海洋</p>
+<ol start="10">
+<li>体育锻炼者在锻炼过程中，从主、客观两方面对自身生理机能和健康状况进行观察和评定的方法是（）。                答案：C</li>
+</ol>
+<p>A；全面体格检查       B；健康诊断       C；自我医务监督        D；机能测试</p>
+<ol start="11">
+<li>以下哪种训练方法是发展快速力量最常用方法。       答案：B</li>
+</ol>
+<p>A；大重量的极限力量练习                              B；中小重量的快速练习</p>
+<p>C；长距离的跳跃练习                                      D；小重量多重复次数的练习</p>
+<ol start="12">
+<li>人类形态学把（）作为一个综合反映人体的围度、宽度和厚度发育状况的整体指标。 答案：D</li>
+</ol>
+<p>A；身高         B；胸围                  C；肌肉力              D；体重</p>
+<ol start="13">
+<li>力量分最大力量，（）和力量耐力。      答案：C</li>
+</ol>
+<p>A；绝对力量          B；最小力量        C；速度力量         D；爆发力量</p>
+<ol start="14">
+<li>追求肌肉发达的锻炼可采用（）重量而重复次数在7～12次的练习。     答案：C</li>
+</ol>
+<p>A；较小或中等          B；中等或较大             C；超大          D；极限</p>
+<ol start="15">
+<li>耐力锻炼的效果与运动频率的关系基本上成（）。                 答案：A</li>
+</ol>
+<p>A；正比         B；不等         C；对等           D；反比</p>
+<ol start="16">
+<li>体育运动中最常见的关节损伤是（）。                     答案：C</li>
+</ol>
+<p>A.腕关节            B.肩关节           C.踝关节           D.挫伤</p>
+<ol start="17">
+<li>训练水平高的运动员的肺活量可达到（）mL以上。              答案：C</li>
+</ol>
+<p>A；3000          B；4000         C；5000           D；6000</p>
+<ol start="18">
+<li>（）提出“健全的精神，寓于健全的身体”这一著名格言。                   答案：B</li>
+</ol>
+<p>A；亚里士多德       B；尤纳利        C；盖伦          D；卡拉卡</p>
+<ol start="19">
+<li>体育的自然功能主要反映在健身、健美、、保健，（）等方面。                     答案：B</li>
+</ol>
+<p>A；养生          B；益智          C；健心            D；娱乐</p>
+<p>20 田径长距离赛跑总是逆时针方向、向左侧转弯绕圈，主要科学依据是（）；             答案：B</p>
+<p>A；保护偏左的心脏                                         B；左脚比右脚有力</p>
+<p>C；裁判员的视觉习惯                                     D；大多数跑步人的习惯</p>
+<ol start="21">
+<li>在耐力素质锻炼中，常采用的越野跑属于（）。                  答案：B</li>
+</ol>
+<p>A；比赛法             B；重复练习法        C；变换练习法       D；综合练习法</p>
+<ol start="22">
+<li>人在完成某种运动表现的力量，若不考虑与本人体重的关系，称为（）。            答案：A</li>
+</ol>
+<p>A；绝对力量        B；最大力量        C；相对力量        D；爆发性力量</p>
+<ol start="23">
+<li>肌肉的收缩放松有赖于（）的供应。            答案：C</li>
+</ol>
+<p>A；蛋白质         B；糖          C；能量                D；血液</p>
+<ol start="24">
+<li>根据我国体育发展的特点和规律，体育用于广义时，通常就是指（）。            答案：D</li>
+</ol>
+<p>A；竞技体育       B；体育教育       C；健康教育        D；体育运动</p>
+<ol start="25">
+<li>运动中最易发生痉挛的肌肉是（）。            答案：A</li>
+</ol>
+<p>A；小腿腓肠肌       B；足屈拇肌        C；股四头肌        D；肱二头肌</p>
+<ol start="26">
+<li>运动中腹痛一般可采用减速慢跑，加深呼吸，按摩疼痛部位或（）等方法处理，疼痛常可减轻或消失，如果疼痛仍不减轻或消失，甚至加重，就应该停止运动。   答案：C</li>
+</ol>
+<p>A；慢走         B；快走         C；弯腰跑          D；停下来</p>
+<ol start="27">
+<li>人体在体育锻炼过程中，无论是运动器官还是内脏器官都有一个适应过程，这个过程是通过（）的调节，才使机体从不适应到逐步适应。       答案：B</li>
+</ol>
+<p>A；周围神经系统      B；中枢神经系统      C；植物性神经       D；迷走性神经</p>
+<ol start="28">
+<li>武术“内外合一，形神兼备”的特点主要通过（）体现。    答案：C</li>
+</ol>
+<p>A；套路运动      B；搏斗运动       C；武术功法和技法        D；硬气功</p>
+<ol start="29">
+<li>目前我国高校中，体育课的主要形式有普通体育课、选项体育课、（）和保健体育课等。  答案：B</li>
+</ol>
+<p>A；体育俱乐部       B；选修体育课       C；专项体育课       D；网络体育课</p>
+<ol start="30">
+<li>长期坚持体育锻炼的人，骨密质可增厚（）毫米。    答案：B</li>
+</ol>
+<p>A；0.5-1.0       B；1.5-8         C；8-12.5         D；12-20</p>
+<ol start="31">
+<li>当人体长时间在高温环境或日光下曝晒，易引起一种疾病，称（）。     答案：D</li>
+</ol>
+<p>A；热伤风       B；灼伤           C；晕厥                         D；中暑</p>
+<ol start="32">
+<li>运动损伤后皮肤和粘膜的完整性遭到破坏，伤口与外界相通的损伤称（）。   答案：C</li>
+</ol>
+<p>A；擦伤          B；肌肉拉伤          C；开放性损伤              D；闭和性损伤</p>
+<ol start="33">
+<li>（）提出了“体育乃是一个由儿童至成年整个发展过程的一个部分”的学说。    答案：D</li>
+</ol>
+<p>A；英国哲学家洛克                                         B；前捷克教育家夸美纽斯</p>
+<p>C；法国教育家顾拜旦                                      D；法国启蒙思想家卢梭</p>
+<ol start="34">
+<li>健美操是融体操、舞蹈和（）为一体的一项运动。      答案：C</li>
+</ol>
+<p>A；武术        B；拳击         C；音乐          D；柔韧</p>
+<ol start="35">
+<li>下列不能缓解和消除肌肉酸痛的方法是（）。      答案：D</li>
+</ol>
+<p>A；热敷        B；按摩         C；口服维生素C          D；冷敷</p>
+<ol start="36">
+<li>傍晚锻炼结束与睡觉的间隔时间要在（）以上，否则，会影响夜间的休息。    答案：C</li>
+</ol>
+<p>A；15分钟        B；30分钟       C；1小时          D；2小时</p>
+<ol start="37">
+<li>进行较剧烈的体育锻炼如球类比赛、快速跑、健美操等，运动后应多补充一些碱性食物，如（）。答案：A</li>
+</ol>
+<p>A；蔬菜、水果         B；动物蛋白         C；维生素         D；矿物质</p>
+<ol start="38">
+<li>根据学校的特点，大学生在制定锻炼计划时，应以（）为锻炼周期。    答案：C</li>
+</ol>
+<p>A；一个月        B；三个月        C；一学期        D；全学年</p>
+<ol start="39">
+<li>体育运动中因外力作用使关节面失去正常的连接关系称（）。       答案：B</li>
+</ol>
+<p>A.关节损伤       B.关节脱位       C.关节扭伤        D.关节部位骨折</p>
+<ol start="40">
+<li>评价和掌握运动负荷，一般以脉搏平均（）次/分的超常态运动负荷指标，作为达到提高有氧代谢能力的标准。      答案：A</li>
+</ol>
+<p>A.130         B.140         C.150        D.160</p>
+<ol start="41">
+<li>
+<p>世界卫生组织对健康提出的定义。“健康是指在身体、（心理）和社会各方面都比较完美的状态，而不仅是没有疾病和虚弱。”</p>
+</li>
+<li>
+<p>健康五要素说中包括身体、情绪、智力、精神和（社会）等五个方面。</p>
+</li>
+<li>
+<p>（心肺耐力）属于与健康有关的体能。</p>
+</li>
+<li>
+<p>体育锻炼前应该注意（知晓自己的体能和健康状况） 、了解自己的锻炼动机强度和体育锻炼的方法。</p>
+</li>
+<li>
+<p>测量心肺功能适应能力的方法不包括（仰卧起坐测试）。</p>
+</li>
+<li>
+<p>仰卧起坐主要测量的是（腹部）的肌肉。</p>
+</li>
+<li>
+<p>下列选项中（次数）是通常情况下用来表示负荷量的。</p>
+</li>
+<li>
+<p>下列选项中（密度）是通常情况下用来表示负荷强度的。</p>
+</li>
+<li>
+<p>“百分之十原则”是在下列哪一项训练原则中提出的（循序渐进原则）。</p>
+</li>
+<li>
+<p>下列不是缓解过度锻炼症状的方法（继续增加锻炼时的运动强度）。</p>
+</li>
+<li>
+<p>运动处方的组成为（锻炼目标→准备活动→锻炼模式→整理活动）。</p>
+</li>
+<li>
+<p>整理活动的目的不包括（有助于肌肉温度的提高）。</p>
+</li>
+<li>
+<p>准备活动的目的不包括（降低因运动而引起肌肉酸痛的程度）。</p>
+</li>
+<li>
+<p>为提高健康有关的体能水平，每周建议的锻炼的次数为（3～5次）。</p>
+</li>
+<li>
+<p>长时间的跑步所主要采用的呼吸方式是（腹式呼吸）。</p>
+</li>
+<li>
+<p>运动强度的大小一般可以通过心率指标来确定。假设一名体育爱好者今年的年龄为20岁，那么他的最高心率为（200）。</p>
+</li>
+<li>
+<p>游泳锻炼方法和其他锻炼方法相比独有的特点是（消耗能量较多，但心率相对处于较低的水平）。</p>
+</li>
+<li>
+<p>关于步行锻炼法的描述错误的是（和跑步比起来可以消耗掉更多的能量物质）。</p>
+</li>
+<li>
+<p>下列哪项可以作为评价肌肉耐力的方法（俯卧撑 ）。</p>
+</li>
+<li>
+<p>关于仰卧起坐的测量，下列说法不正确的是（可以使用肘部撑垫或者借助臀部上挺和下落的力量起坐）。</p>
+</li>
+<li>
+<p>体块指数（BMI）的计算公式是（体重（kg）/身高的平方（㎡））。</p>
+</li>
+<li>
+<p>为改善健康状况所需的最小运动量叫（健康阈 ）。</p>
+</li>
+<li>
+<p>关于跑步的技术要领下列说法正确的是（跑步时摆臂有维持身体平衡和调节步频的作用。）。</p>
+</li>
+<li>
+<p>锻炼中运动强度的大小一般通过（心率）指标来确定。</p>
+</li>
+<li>
+<p>（心肺耐力）不属于动作技能有关的体能。</p>
+</li>
+</ol>
+<h3 id="理论考试判断题"><a class="header" href="#理论考试判断题"><strong>理论考试判断题</strong></a></h3>
+<div class="table-wrapper"><table><thead><tr><th></th><th></th><th></th></tr></thead><tbody>
+<tr><td>序号</td><td>选项</td><td>内容</td></tr>
+<tr><td>1</td><td>true</td><td>身体锻炼，应全面均衡发展，要参加丰富多彩的体育活动，全面锻炼自己的身体，努力克服单一体育活动对你身体发展的局限性，保证自己身体各器官机能均衡发展。</td></tr>
+<tr><td>2</td><td>true</td><td>自然地形跑时要注意做好缓冲动作，用前脚掌先着地，后蹬程度和前摆高度要小一些。在森林或灌木丛中跑时，要注意地形的变化，避开草丛中障碍物。跨越沟渠时，要注意做好落地后的缓冲动作，上体前倾，防止后倒。</td></tr>
+<tr><td>3</td><td>true</td><td>导引是中国古老的医疗体育和养生方式。</td></tr>
+<tr><td>4</td><td>true</td><td>健身运动是指正常健康者为增进健康、增强体质而从事的体育活动。</td></tr>
+<tr><td>5</td><td>false</td><td>伤病初愈的人参加体育教学训练时，应根据教练的意见处理。</td></tr>
+<tr><td>6</td><td>false</td><td>日光浴时，头部可以让太阳直接照射。</td></tr>
+<tr><td>7</td><td>false</td><td>紫外线能刺激身体的造血机能，使血液中的白血球数量增加。</td></tr>
+<tr><td>8</td><td>true</td><td>女子痛经是妇科的一种常见病，一般由内分泌失调、体质虚弱所致。</td></tr>
+<tr><td>9</td><td>false</td><td>钙和维生素对大学生的身体发育和适应繁重的学习任务具有重要意义。</td></tr>
+<tr><td>10</td><td>true</td><td>《学生体质健康标准》测试项目为六项，其中身高、体重、肺活量为必测项目。</td></tr>
+<tr><td>11</td><td>false</td><td>速度力量的练习突出的是速度，因此力量应该较大。</td></tr>
+<tr><td>12</td><td>true</td><td>体质是人的生命活动、劳动能力、运动能力的基础。</td></tr>
+<tr><td>13</td><td>false</td><td>散步是无氧耐力锻炼的常用方法。</td></tr>
+<tr><td>14</td><td>false</td><td>挫伤的处理是在24小时内进行热敷或按摩。</td></tr>
+<tr><td>15</td><td>true</td><td>因运动量过度产生的肌肉酸疼，可以通过减量、休息、按摩、热敷等方法来帮助机体积极恢复。</td></tr>
+<tr><td>16</td><td>false</td><td>人体在吃饭后可以立即进行剧烈的运动。</td></tr>
+<tr><td>17</td><td>false</td><td>经常参加耐力锻炼可使肺通气量增大，静脉回心血量减少。</td></tr>
+<tr><td>18</td><td>false</td><td>经常进行冷水浴能够有效避免冠心病的发生，因此冠心病患者适宜进行冷水浴。</td></tr>
+<tr><td>19</td><td>false</td><td>耐力素质练习应从一定的练习量开始，在此基础上逐步提高练习强度。</td></tr>
+<tr><td>20</td><td>true</td><td>体育锻炼基本原则为：锻炼时要轻松自如，并有一种满足感，这也是锻炼者进行运动量监测的一项主观指标。</td></tr>
+<tr><td>21</td><td>true</td><td>体育锻炼、体育教学与运动训练一样都是以身体练习为基本手段。</td></tr>
+<tr><td>22</td><td>true</td><td>在体育运动中，常见的严重的运动损伤有关节脱位、骨折和脑震荡等。</td></tr>
+<tr><td>23</td><td>true</td><td>测定体育课的密度时，通常把教师要求学生跑步捡回器械的时间作为练习时间。</td></tr>
+<tr><td>24</td><td>true</td><td>健身跑的距离和速度要按照循序渐进的原则，先从短距和慢速开始，待适应后就要加长距离和加快跑速。</td></tr>
+<tr><td>25</td><td>true</td><td>轻微的肌肉拉伤或少量的肌肉纤维的断裂，应立即冷敷，局部加压包扎，抬高肢体。</td></tr>
+<tr><td>26</td><td>true</td><td>对少年儿童运动技术训练的要求是全面训练打好基础。</td></tr>
+<tr><td>27</td><td>false</td><td>患有急性肝炎的患者适宜进行冷水浴。</td></tr>
+<tr><td>28</td><td>true</td><td>进行力量练习时，每周至少练习三次，每次至少练习五组，每组之间间隔2—3分钟，每次练习之后要放松你的肌肉。</td></tr>
+<tr><td>29</td><td>true</td><td>动作速度可采用徒手或稍加重量的最快速度重复某一动作来提高。</td></tr>
+<tr><td>30</td><td>false</td><td>肌肉痉挛明显的病人可做强烈牵拉运动。</td></tr>
+<tr><td>31</td><td>true</td><td>有些人处在既不完全健康，又没有患疾病的状态，这种中间状态，在医学上称这为亚健康状态，或称第三态。要想改变为健康状态，就需要调整生物钟，加强营养，适当休息，进行娱乐和体育活动。</td></tr>
+<tr><td>32</td><td>false</td><td>骨膜炎以胫、腓骨及尺、桡骨下1/3部位易发生，这种运动损伤在成年运动员中较常见。</td></tr>
+<tr><td>33</td><td>true</td><td>健美锻炼法又称为力量性身体锻炼法。</td></tr>
+<tr><td>34</td><td>true</td><td>适量性原则是指要恰当的安排生理和心理运动负荷量，使之既能满足锻炼者增强体质等方面的需求，又能符合人体的实际接受能力。</td></tr>
+<tr><td>35</td><td>false</td><td>同一个人对运动负荷量的承受能力是一成不变的。</td></tr>
+<tr><td>36</td><td>false</td><td>骨折后先固定再抗休克。</td></tr>
+<tr><td>37</td><td>false</td><td>在体育运动中，最常见的运动损伤是肌体的结缔组织损伤。</td></tr>
+<tr><td>38</td><td>true</td><td>运动时，如果准备活动不充分或感受到寒冷的强烈刺激，肌肉会出现痉挛。</td></tr>
+<tr><td>39</td><td>true</td><td>冷水含漱咽喉是进行冷水浴锻炼的一种方法。</td></tr>
+<tr><td>40</td><td>false</td><td>通常在发展学生体能的前提下，才选用比赛法训练。</td></tr>
+<tr><td>41</td><td>false</td><td>晨间锻炼的运动强度大对机体有良好影响。</td></tr>
+<tr><td>42</td><td>true</td><td>运动是治疗内脏下垂和预防便秘的好方法。</td></tr>
+<tr><td>43</td><td>true</td><td>身体锻炼，应全面均衡发展，要参加丰富多彩的体育活动，全面锻炼自己的身体，努力克服单一体育活动对你身体发展的局限性，保证自己身体各器官机能均衡发展。</td></tr>
+<tr><td>44</td><td>true</td><td>奥林匹克运动是国际奥委会领导而源于奥林匹克主义具有持续性、世界性的社会文化的运动。</td></tr>
+<tr><td>45</td><td>true</td><td>脑震荡发生在运动中通常是由于头部受到硬物的打击或与硬物相碰撞而引起的。</td></tr>
+<tr><td>46</td><td>false</td><td>多发生在骨折的当时，疼痛非常剧烈，随后将缓解。</td></tr>
+<tr><td>47</td><td>true</td><td>为预防运动中的外伤，你应尽量避免摔倒，注意穿防滑的运动鞋，遵守规则，减少不合理的身体冲撞和磨擦。</td></tr>
+<tr><td>48</td><td>true</td><td>户外运动要选择卫生、安全的运动场所，要有足够强壮的体能，有必要的户外运动常识如识别地图，辩别方向，观察天气变化、运动创伤的预防和紧急处置等野外生存的基本知识。</td></tr>
+<tr><td>49</td><td>false</td><td>体育锻炼是人们运用各种身体练习方法，并结合文化因素，以发展身体、增进健康、增强体质、调节精神、丰富文化生活为目的的身体活动。</td></tr>
+<tr><td>50</td><td>true</td><td>人体在运动中和运动后的饮水要求是多次少量用温开水，逐渐补充丢失的水分。</td></tr>
+<tr><td>51</td><td>false</td><td>经济功能是体育最本质的功能。</td></tr>
+<tr><td>52</td><td>false</td><td>竞技体育含运动训练和竞赛欣赏两种形式。</td></tr>
+<tr><td>53</td><td>true</td><td>体育锻炼基本原则为：锻炼时要轻松自如，并有一种满足感，这也是锻炼者进行运动量监测的一项主观指标。</td></tr>
+<tr><td>54</td><td>true</td><td>缺少运动场地的管理制度或管理不严也容易发生伤害事故。</td></tr>
+<tr><td>55</td><td>false</td><td>剧烈运动后可以下水游泳，但时间不宜过长。</td></tr>
+<tr><td>56</td><td>false</td><td>体格是指人体各器官系统的机能和在肌肉活动中表现出来的能力。</td></tr>
+<tr><td>57</td><td>true</td><td>适量性原则是指要恰当的安排生理和心理运动负荷量，使之既能满足锻炼者增强体质等方面的需求，又能符合人体的实际接受能力。</td></tr>
+<tr><td>58</td><td>false</td><td>体育课的一般密度应是越大越好。</td></tr>
+<tr><td>59</td><td>false</td><td>参加体育活动不能清除眼睛疲劳，保护和矫正视力。</td></tr>
+<tr><td>60</td><td>false</td><td>体能分为与 健康有关的体能和与耐力有关的体能。</td></tr>
+<tr><td>61</td><td>false</td><td>要增强自己的体能必须经常的进行体育锻炼。</td></tr>
+<tr><td>62</td><td>true</td><td>美国学者奥林斯提出了一种三维健康模式，强调从生物、心理和社会三方面来评价人的生命状态。</td></tr>
+<tr><td>63</td><td>false</td><td>根据人的健康三维表象，普通人大致可分为5种健康模型。</td></tr>
+<tr><td>64</td><td>true</td><td>身体健康不仅指无病，而且还包括体能。</td></tr>
+<tr><td>65</td><td>false</td><td>情绪健康的主要标志是情绪的乐观。</td></tr>
+<tr><td>66</td><td>true</td><td>人情绪的稳定性是指个体应对日常生活中人际关系和环境压力的能力。</td></tr>
+<tr><td>67</td><td>true</td><td>智力健康是指长期的学习和生活中大脑始终保持活跃状态。</td></tr>
+<tr><td>68</td><td>false</td><td>社会健康指人与社会环境的相互作用，具有和谐的人际关系和实现社会角色的能力</td></tr>
+<tr><td>69</td><td>true</td><td>社会健康可以 使你在交流中有自信感和安全感，少生烦恼，心情舒畅。</td></tr>
+<tr><td>70</td><td>false</td><td>完美的身体健康包括身体、精神、社会和心理健康。</td></tr>
+<tr><td>71</td><td>true</td><td>营养对增强体质I和保持体能状态有重要作用。</td></tr>
+<tr><td>72</td><td>false</td><td>蛋白质可以促进人体生长发育和修复机体组织，满足人们每日身体活动所需要的能量。</td></tr>
+<tr><td>73</td><td>true</td><td>生活方式是指人们长期受文化、民族、经济、社会、风俗、家庭影响形成的。它与健康有关。</td></tr>
+<tr><td>74</td><td>true</td><td>心理健康同样影响着生理健康。古人云：怒伤肝、喜伤心、忧伤肺、恐伤肾、思伤脾。</td></tr>
+<tr><td>75</td><td>false</td><td>心理健康的基础是情绪好。</td></tr>
+<tr><td>76</td><td>true</td><td>体能也叫体适能，主要通过体育锻炼获得。</td></tr>
+<tr><td>77</td><td>false</td><td>人体对某些外部刺激做出的生理反应时间称为反应速度，它是许多项目优秀运动员的必备素质。</td></tr>
+<tr><td>78</td><td>true</td><td>我国优秀的跨栏运动员刘翔，如果他的反应后时素质强的话，他的成绩将会更好。</td></tr>
+<tr><td>79</td><td>true</td><td>“老年勤锻炼，拐杖当宝剑”是指有规律的体育锻炼，能使老年人身体活动能力退化减慢。</td></tr>
+<tr><td>80</td><td>true</td><td>一个人的皮下脂肪超过正常标准15%-25%，那么他的死亡率会增加30%。</td></tr>
+<tr><td>81</td><td>false</td><td>速度是指快跑的能力。</td></tr>
+<tr><td>82</td><td>false</td><td>力量是指提、举重量的能力。</td></tr>
+<tr><td>83</td><td>false</td><td>灵敏性指在活动过程中快速变化身体移动方向的能力。</td></tr>
+<tr><td>84</td><td>true</td><td>灵敏性指在活动过程中既快速又准确地变化身体移动方向的能力。</td></tr>
+<tr><td>85</td><td>true</td><td>神经肌肉协调性是反应一个人视觉、听觉和平衡觉与熟练动作技能相结合的能力。</td></tr>
+<tr><td>86</td><td>true</td><td>平衡指运动或静止站立时保持身体稳定性的能力。</td></tr>
+<tr><td>87</td><td>false</td><td>反应时是指对某些外部刺激作出的动作时间。</td></tr>
+<tr><td>88</td><td>true</td><td>要设计一种提高体能方案时，首先应该确立自己的目标。</td></tr>
+<tr><td>89</td><td>false</td><td>要保持旺盛的生命力，就应该进行经常的体育锻炼。</td></tr>
+<tr><td>90</td><td>true</td><td>有规律的体育锻炼可以通过提高骨质密度和骨的强度达到预防骨裂的目的。</td></tr>
+<tr><td>91</td><td>false</td><td>人的肌体灵活、耳聪目明、精力充沛，这是生理功能健壮的表现。</td></tr>
+<tr><td>92</td><td>true</td><td>经常锻炼人的平均每分钟呼吸次数一般都比不锻炼的人慢。</td></tr>
+<tr><td>93</td><td>false</td><td>为了科学安全的通过体育锻炼提高自己的健康水平，首先在锻炼前必须了解自己的身体状况。</td></tr>
+<tr><td>94</td><td>true</td><td>要提高自己的体能水平需要时间、努力和耐性。俗话说“贵在坚持”。</td></tr>
+<tr><td>95</td><td>true</td><td>很少锻炼的人，体育活动后肌肉会出现酸痛，这种现象数日后会自行消失。</td></tr>
+<tr><td>96</td><td>true</td><td>体育锻炼不仅能增强体能，增进健康，还可以减缓心理压力。</td></tr>
+<tr><td>97</td><td>false</td><td>如果你的锻炼目标为了增强耐力，你应该选择健身操和跑步等活动项目。</td></tr>
+<tr><td>98</td><td>false</td><td>如果你的锻炼目标为了增强力量，你应该选择拳击、体操等活动项目。</td></tr>
+<tr><td>99</td><td>true</td><td>提高体能无捷径，需要时间、努力和耐性。</td></tr>
+<tr><td>100</td><td>true</td><td>身体自测的主要内容包括：心肺耐力、肌肉力量、肌肉耐力、柔韧性和身体成分。</td></tr>
+<tr><td>101</td><td>false</td><td>18岁以上对自己健康无疑问者，可以直接参与中低强度的身体练习。</td></tr>
+<tr><td>102</td><td>true</td><td>要诊断较隐蔽的某些心脏问题时，必须在运动期间进行心电图测试。</td></tr>
+<tr><td>103</td><td>false</td><td>运动心电图是指运动后进行心电图测试。</td></tr>
+<tr><td>104</td><td>true</td><td>最大吸氧量，又可以称最大耗氧量。</td></tr>
+<tr><td>105</td><td>false</td><td>最大吸氧量是人体呼吸系统适应能力最精确的方法。</td></tr>
+<tr><td>106</td><td>true</td><td>目前国内最简单评价心肺功能适应能力的方法是12分钟跑测试。</td></tr>
+<tr><td>107</td><td>true</td><td>我们在进行健康标准测试时的“台阶测试”是检测心肺功能适应能力。</td></tr>
+<tr><td>108</td><td>true</td><td>负重屈肘肩上推举杠铃或仰卧推举，是锻炼上肢力量。</td></tr>
+<tr><td>109</td><td>true</td><td>运动强度是指锻炼时人体承受的生理负荷量。</td></tr>
+<tr><td>110</td><td>true</td><td>早在古希腊时代，医生就相信健康是身体的完全平衡。</td></tr>
+<tr><td>111</td><td>false</td><td>一个人只有在身体和心理两个方面保持健康，才能有效地保证其健康幸福的生活，并提高生命的质量。</td></tr>
+<tr><td>112</td><td>false</td><td>健康是指“无病、无残、无伤”。</td></tr>
+<tr><td>113</td><td>true</td><td>对健康的评价不仅基于医学生物学的范畴，而且扩大到心理和社会学的领域。</td></tr>
+<tr><td>114</td><td>false</td><td>人的生命三维立方体是指身体、情绪、生活习惯。</td></tr>
+<tr><td>115</td><td>true</td><td>人的生命三维立方体中三种属性的面积越大，则该个体的生命质量也越高。</td></tr>
+<tr><td>116</td><td>true</td><td>许多健康者的经验告诉我们，生命体的质量与健康长寿成正比。</td></tr>
+<tr><td>117</td><td>false</td><td>生活中出现情绪高涨或情绪低落等现象，证明情绪出现了亚健康，要注意调摄。</td></tr>
+<tr><td>118</td><td>true</td><td>通过听课、与朋友讨论问题和阅读报刊书籍能有效增进智力健康。</td></tr>
+<tr><td>119</td><td>false</td><td>智力健康是指智商和智力都达到了应有的高水平。</td></tr>
+<tr><td>120</td><td>true</td><td>智力健康是指在长期的学习和生活中，你的大脑始终保持活跃状态。</td></tr>
+<tr><td>121</td><td>true</td><td>精神健康对于不同的宗教、文化和国籍的人意味着不同的内容和标准。</td></tr>
+<tr><td>122</td><td>true</td><td>一个人的社会健康水平高，在交往中的自信和安全感就强。</td></tr>
+<tr><td>123</td><td>false</td><td>在人的生命长河不同时期，对五大健康要素的需求程度均是相同的。只要某一要素发展不平衡，就会危害健康。</td></tr>
+<tr><td>124</td><td>true</td><td>人体的新陈代谢主要靠甲状腺控制，甲状腺素分泌数量与人体的新陈代谢速度成正比。</td></tr>
+<tr><td>125</td><td>false</td><td>柔韧性是指完成大幅度动作的能力。</td></tr>
+<tr><td>126</td><td>false</td><td>一个人出现弓背、猫腰，除了习惯姿势因素外，主要是由于腹肌力量太差。</td></tr>
+<tr><td>127</td><td>false</td><td>如果锻炼目标是为了减轻体重，应该选择短跑和举重。</td></tr>
+<tr><td>128</td><td>false</td><td>只要锻炼计划科学、合理，就能有效增强体能。</td></tr>
+<tr><td>129</td><td>true</td><td>在台阶测试中，是根据性别来区分台阶高度。</td></tr>
+<tr><td>130</td><td>false</td><td>台阶测试的目的是检查下肢耐力。</td></tr>
+<tr><td>131</td><td>false</td><td>台阶测试后，心跳次数越快，说明心肺功能越好。</td></tr>
+<tr><td>132</td><td>true</td><td>进行1RM测试容易导致损伤，因此大学生需要经过1-2周训练后，方能参加1RM测试。</td></tr>
+<tr><td>133</td><td>false</td><td>胸围与臀围比例高的人比胸围与臀围比例低的人容易患心脏病和高血压。</td></tr>
+<tr><td>134</td><td>true</td><td>缓解过度锻炼症状的方法是，增加两次锻炼之间的休息时间和降低锻炼时的运动强度。</td></tr>
+<tr><td>135</td><td>true</td><td>锻炼后出现注意力涣散、容易激动，睡眠不好，夜间盗汗、食欲不振等状况，这是锻炼过度，应及时调整。</td></tr>
+<tr><td>136</td><td>false</td><td>对于过度锻炼者，只需休息一段时间，集体即可得以恢复。</td></tr>
+<tr><td>137</td><td>false</td><td>对从事有规律的体育锻炼者来说，最重要的营养成分是蛋白质。</td></tr>
+<tr><td>138</td><td>true</td><td>一份运动处方应包括锻炼目标、准备活动、锻炼模式和整理活动。</td></tr>
+<tr><td>139</td><td>false</td><td>为了有效提高锻炼效果，降低身体受伤的可能，应该循序渐进的提高运动量。</td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../营养/吃货的营养学修养.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../看杀潘安/看杀潘安.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../营养/吃货的营养学修养.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../看杀潘安/看杀潘安.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
