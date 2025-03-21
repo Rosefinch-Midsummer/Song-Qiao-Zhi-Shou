@@ -1,0 +1,466 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>游泳 - 松乔之寿</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">松乔之寿</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="游泳"><a class="header" href="#游泳">游泳</a></h1>
+<ul>
+<li><a href="#%E6%B8%B8%E6%B3%B3%E7%90%86%E8%AE%BA%E8%80%83%E8%AF%95-">游泳理论考试 </a>
+<ul>
+<li><a href="#%E4%B8%80%E9%80%89%E6%8B%A9%E9%A2%98">一、选择题</a></li>
+<li><a href="#%E4%BA%8C%E5%88%A4%E6%96%AD%E9%A2%98">二、判断题</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="游泳理论考试"><a class="header" href="#游泳理论考试"><strong>游泳理论考试</strong> </a></h2>
+<h3 id="一选择题"><a class="header" href="#一选择题">一、选择题</a></h3>
+<p>1、请问一共有几种游泳的姿势（   ）。</p>
+<p>A.三种          B.两种              C.四种             D.五种</p>
+<p>答案：C</p>
+<p>2游泳的起源是什么（   ）。</p>
+<p>A.游泳是人类在与大自然斗争中产生和发展而来的</p>
+<p>B.是平民在河里溺水时自创的</p>
+<p>C.人们自己玩耍而来</p>
+<p>答案：A</p>
+<p>3、室内游泳好还是室外游泳好（   ）。</p>
+<p>A.在水质差不多时，室内好                B.在水质差不多时，室外好</p>
+<p>C.室内好                                D.室外好</p>
+<p>答案：B</p>
+<p>4、游泳前什么时候吃饭较好（   ）。</p>
+<p>A.3个小时        B.2.5个小时        C.1个小时           D.20分钟</p>
+<p>答案：C</p>
+<p>5、混合泳比赛第一个泳姿是哪种（   ）。</p>
+<p>A.蝶泳            B.仰泳            C.蛙泳              D.自由泳</p>
+<p>答案：A</p>
+<p>6、混合泳接力比赛第一个泳姿是哪种（   ）。</p>
+<p>A.蝶泳             B.仰泳              C.蛙泳            D.自由泳</p>
+<p>答案：B</p>
+<p>7、蛙泳的腿部技术结构可分成几个部分（   ）。</p>
+<p>A.2个              B.3个              C.4个             D.5个</p>
+<p>答案：C</p>
+<p>8、游泳各种姿势出发后在水中潜泳的距离不得超过（  ）。</p>
+<p>A.12M              B.13M                C.14M             D.15M</p>
+<p>答案：D</p>
+<p>9、比赛泳池的标准长度为（   ）。</p>
+<p>A.25M和50M         B.50M和100M         C.25M和100M      D.20M和50M</p>
+<p>答案：A</p>
+<p>10、蝶泳的配合技术多为（   ）。</p>
+<p>A.一次腿一次手     B.两次腿一次手       C.三次腿一次手     D.一次腿两次手</p>
+<p>答案：B</p>
+<p>11、自由泳打腿的幅度为（   ）。</p>
+<p>A.10-20CM             B. 20-30CM           C. 30-40CM           D.40-50CM</p>
+<p>答案：C</p>
+<p>12、在正式游泳比赛中，哪一种游距不是蛙泳比赛的项目（  ）。</p>
+<p>A.50米              B.100米        C.200米             D.400米</p>
+<p>答案：D</p>
+<p>13、以下哪一种运动项目不是游泳运动项目（   ）。</p>
+<p>A.跳水            B.水球              C.划船               D.花样游泳</p>
+<p>答案：C</p>
+<p>14、仰泳在哪一届奥运会比赛中被列为正式比赛项目（  ）。</p>
+<p>A.第一届奥运会     B.第二届奥运会      C.第三届奥运会      D.第四届奥运会</p>
+<p>答案：B</p>
+<p>15、1887年，在（  ）修建了我国第一个室内游泳池，拉开了我国近代游泳的序幕。</p>
+<p>A.上海          B.北京          C.广州             D.南京</p>
+<p>答案：C</p>
+<p>16、池水ＰＨ值的范围是（   ）。</p>
+<p>A.5.6-5.8          B.6.5-8.5        C.7.6-8.0           D.8.1-8.5</p>
+<p>答案：B</p>
+<p>17、游泳比赛时，运动员如在“出发信号”发出前出发，应判（  ）。</p>
+<p>A.重新出发      B.取消比赛资格        C.成绩有效         D.名次最后</p>
+<p>答案：B</p>
+<p>18、游泳比赛仰泳转身标志线为横跨游泳池的旗绳并固定在离池两端（  ）米的柱子上。</p>
+<p>A.5米              B.6米                   C.8米             D.10米
+答案：A</p>
+<p>19、在设有8条泳道的游泳池内比赛时，同一组成绩最好的运动员应排在第几泳道（  ）。</p>
+<p>A.第3泳道           B.第4泳道         C.第5泳道        D.第6泳道</p>
+<p>答案：B</p>
+<p>20、游泳池内设八条泳道，由九条分道线构成，每条泳道的宽是多少米（  ）。</p>
+<p>A.1.5米             B.2米              C.2.5米              D.3米</p>
+<p>答案：C</p>
+<p>21、多名运动员在“出发信号”发出前出发时，应判（  ）犯规。</p>
+<p>A.起带头作用者      B.所有抢跳者      C.重新组织出发       D.头二名抢跳者</p>
+<p>答案：B</p>
+<p>22、每组比赛开始前,当总裁判发出长哨声后,示意运动员做什么准备（  ）。</p>
+<p>A.脱外套             B.上出发台           C.向观众致意        D.入水活动</p>
+<p>答案：B</p>
+<p>23、游泳比赛出发台的表面面积至少为多少×多少厘米（  ）。</p>
+<p>A.40×40厘米       B.50×50厘米      C.60×60厘米        D.70×70厘米</p>
+<p>答案：B</p>
+<p>24、50M标准池内各泳道中央的池底应有清晰的深色标志线,线宽20～30厘米,线长是多少米（  ）。</p>
+<p>A.45米              B.46米             C.47米            D.48米</p>
+<p>答案：B</p>
+<p>25、游泳比赛时,哪一种护具能够配戴（   ）。</p>
+<p>A.脚蹼               B.泳镜             C.鼻夹             D.耳塞</p>
+<p>答案：B</p>
+<p>26、游泳与其它运动项目相比较有其独特的特征,因为它是（  ）。</p>
+<p>A.水上运动       B.激烈运动         C.无氧运动      D.水平运动</p>
+<p>答案：D</p>
+<p>27、在游泳比赛中，游速最慢的姿势是（   ）。</p>
+<p>A.蝶泳               B.仰泳             C.蛙泳               D.爬泳</p>
+<p>答案：C</p>
+<p>28、游泳接力比赛时，第一棒与第二棒运动员的顺序发生颠倒应判罚（  ）。</p>
+<p>A.重新比赛         B.该队犯规          C.成绩有效            D.破记录有效</p>
+<p>答案：B</p>
+<p>29、重大游泳比赛的决赛场次一般安排在（   ）。</p>
+<p>A.上午              B.下午           C.晚上             D.都有</p>
+<p>答案：C</p>
+<p>30、游泳比赛时,哪两个项目是从水下出发的（  ）。</p>
+<p>A.混合泳、仰泳     B.蛙泳、仰泳     C.仰泳、蝶泳       D.仰泳、混合泳接力</p>
+<p>答案：D</p>
+<p>31、池水的余氯含量的标准范围是（   ）mg/L。</p>
+<p>A.0.1-0.2           B.0.3-0.5          C.0.6-0.7           D.0.8-0.9</p>
+<p>答案：B</p>
+<p>32、自由泳向右边换气时，右手应在（   ）。</p>
+<p>A.身体前面       B.臀部旁边         C.水中划水            D.空中</p>
+<p>答案：D</p>
+<p>33、游泳时会发生肌肉抽筋，下列哪一个不是发生的原因（  ）。</p>
+<p>A.未做暖身运动     B.激烈运动后下水     C.水温较平时低   D.下水前过多饮食</p>
+<p>答案：D</p>
+<p>34、使用游泳池时，以下何种行为不宜（   ）。</p>
+<p>A.入池前，应先淋浴及脚过消毒池</p>
+<p>B.入池前，先要做暖身运动</p>
+<p>C.游泳时会消耗体力，可以带东西去吃</p>
+<p>D.不可在游泳池边奔跑</p>
+<p>答案：C</p>
+<p>35、蛙泳吸气的时机为（   ）。</p>
+<p>A.手向前平伸时                           B.双手内收于胸前颔下时   </p>
+<p>C.双手伸直在前时                         D.随时皆可</p>
+<p>答案：B</p>
+<p>36、游泳池内水道绳的最大功用是什么（   ）。</p>
+<p>A.用来爬的        B.用来消波         C.用来压的       D.以上皆非</p>
+<p>答案：B</p>
+<p>37、水性通常是指，人体在水中（   ）。</p>
+<p>A.漂               B.粘             C.顺            D.以上皆是</p>
+<p>答案：D</p>
+<p>38、成人初学游泳应先学习（   ）。</p>
+<p>A.蛙泳              B.自由泳         C.踩水          D.仰泳</p>
+<p>答案：A</p>
+<p>39、不宜带入泳池的物品（   ） 。</p>
+<p>A.拖鞋              B.毛巾           D.隐形眼镜      D.以上皆是</p>
+<p>答案：D</p>
+<p>40、什么天气不宜在室外游泳（   ）。</p>
+<p>A.下雨打雷          B.高温暴晒       C.昏暗不明水域   D.以上皆是</p>
+<p>答案：D</p>
+<h3 id="二判断题"><a class="header" href="#二判断题">二、判断题</a></h3>
+<p>1、游泳是在水的特殊环境中进行的运动项目。                           （     ）</p>
+<p>参考答案： 正确</p>
+<p>2、水的物理特性在游泳有重要的影响。                                 （     ）</p>
+<p>参考答案：正确</p>
+<p>3、在水中行走有困难是因为失去平衡。                                 （     ）</p>
+<p>参考答案：正确</p>
+<p>4、水不是固体，而是流体，它有固定的支撑点。                         （     ）</p>
+<p>参考答案：错误</p>
+<p>5、正确的呼吸方式是游泳运动的重要环节。                             （     ）</p>
+<p>参考答案：正确</p>
+<p>6、在游泳过程中，吸气和呼气只能用嘴巴进行。                         （     ）</p>
+<p>参考答案：错误</p>
+<p>7、在游泳教学中，水环境对人体有潜在的危险。                         （     ）</p>
+<p>参考答案：正确</p>
+<p>8、熟悉水性是消除怕水心理的最好方法。                               （     ）</p>
+<p>参考答案：正确</p>
+<p>9、游泳可以帮助人矫正不正常的体型。                                 （      ）</p>
+<p>参考答案：正确</p>
+<p>10、游泳有强身健体、健美体型、妨碍治病的作用。                      （      ）</p>
+<p>参考答案：正确</p>
+<p>11、游泳有很强的竞技和欣赏功能。                                    （     ）</p>
+<p>参考答案：正确</p>
+<p>12、经常参加游泳锻炼能提高脑细胞的功能及工作效率。                  （      ）</p>
+<p>参考答案：正确</p>
+<p>13、游泳者必须进行体检后，才能进行游泳锻炼。                        （     ）</p>
+<p>参考答案：正确</p>
+<p>14、身体有不适状况，不应进入泳池练习。                              （     ）</p>
+<p>参考答案：正确</p>
+<p>15、要自觉维护公共卫生，备好泳衣、裤；泳帽；泳镜。                  （     ）</p>
+<p>参考答案：正确</p>
+<p>16、有各种皮肤病、传染病、慢性病者不宜游泳。                      （     ）</p>
+<p>参考答案：正确</p>
+<p>17、泳前必须做好身体各部位的准备活动，以防抽筋。                   （     ）</p>
+<p>参考答案：正确</p>
+<p>18、饮酒与饱食后可以马上游泳。                                    （     ）  </p>
+<p>参考答案：错误</p>
+<p>19、女生经期不宜入水。                                            （     ）</p>
+<p>参考答案：正确</p>
+<p>20、空腹饥饿也不宜游泳，会引起头昏昏厥。                           （      ）</p>
+<p>参考答案：正确</p>
+<p>21、蛙泳是游泳运动中最古老的泳姿。                                （     ）</p>
+<p>参考答案：正确</p>
+<p>22、自由泳又名爬泳。                                              （     ）</p>
+<p>参考答案：正确</p>
+<p>23、自由泳不是所有泳姿中速度最快的。                                （      ）</p>
+<p>参考答案：错误</p>
+<p>24、陆上技术模仿练习时快速完善技术的好方法。                      （      ）</p>
+<p>参考答案：正确</p>
+<p>25、自由泳的退步作用有2点：1）推进；2）保持平衡。                （      ）</p>
+<p>参考答案：正确</p>
+<p>26、自由泳的手臂动作是前进的主要动因。                            （     ）</p>
+<p>参考答案：正确</p>
+<p>27、自由泳是一项身体两侧肌群轮流协调发力的运动。                  （      ）</p>
+<p>参考答案：正确</p>
+<p>28、良好的技术节奏是完成游泳距离的保证。                          （     ）</p>
+<p>参考答案：正确</p>
+<p>29、呼吸技术是自由泳的难点。                                      （     ）</p>
+<p>参考答案：正确</p>
+<p>30、自由泳打腿应两腿同时用力。                                    （     ）</p>
+<p>参考答案：错误</p>
+<p>31、蛙泳是适合在江河湖海中游泳的姿势。                            （      ）</p>
+<p>参考答案：正确</p>
+<p>32、现代奥运会的游泳比赛中共有32个正式比赛项目。                 （     ）</p>
+<p>参考答案：正确</p>
+<p>33、健身游泳、娱乐游泳、康复游泳、成人分龄赛等都属于大众游泳的范畴。 （    ）</p>
+<p>参考答案：错误</p>
+<p>34、50米蝶泳、50米仰泳、50米蛙泳、50米自由泳均是奥运会正式比赛项目。（    ）</p>
+<p>参考答案：错误</p>
+<p>35、游泳池比赛包括蝶泳、仰泳、蛙泳、爬泳、混合泳和接力。             （    ）</p>
+<p>参考答案：错误</p>
+<p>36、在举行第一届现代奥运会时，游泳就被列为竞赛项目之一。             （    ）</p>
+<p>参考答案：正确</p>
+<p>37、游泳比赛出发的口令为“各就各位——，预备——”响枪。             （    ）</p>
+<p>参考答案：错误</p>
+<p>38、一般来说自由泳配合左右手各划一次，腿部动作有两次、四次、六次三种。（    ）</p>
+<p>参考答案：正确</p>
+<p>39、蛙泳出发和转身后只能做多次长拉水。                               （    ）</p>
+<p>参考答案：错误</p>
+<p>40、蛙泳转身与到达时必须双手同时碰壁，且双手高度几乎一样。           （    ）</p>
+<p>参考答案：正确</p>
+<p>41、正规比赛可以穿三点式泳衣。                                       （    ）</p>
+<p>参考答案：错误</p>
+<p>42、正规比赛时男生泳裤的长度为脚踝以上。                             （    ）</p>
+<p>参考答案：错误</p>
+<p>43、救人者下水前应尽量脱去外衣，从落水者背后接近救护，或扔下救生圈、木板等漂浮物相助。                                                   （    ）</p>
+<p>参考答案：正确</p>
+<p>44、在游进中减少阻力也是加快游泳速度的好方法。                       （    ）</p>
+<p>参考答案：正确</p>
+<p>45、游泳换气的要点是充分的呼与吸。                                   （    ）</p>
+<p>参考答案：正确</p>
+<p>46、自由泳比赛中转身时不能手碰壁，只能滚翻。                         （    ）</p>
+<p>参考答案：错误</p>
+<p>47、肌肉僵硬是游泳选手致命的弱点。                                   （    ）</p>
+<p>参考答案：正确</p>
+<p>48、学习游泳时做好腿部练习是掌握正确技术的重要环节。                 （    ）</p>
+<p>参考答案：正确</p>
+<p>49、奥运会游泳比赛中最长距离的项目是男子1500M。                    （     ）</p>
+<p>参考答案：正确</p>
+<p>50、人在水中漂不起来的主要原因是身体太重。                         （     ）</p>
+<p>参考答案：错误 </p>
+<p>51、游泳中造成呼吸不畅的原因是呼吸过程太长。                       （     ）</p>
+<p>参考答案：错误</p>
+<p>52、在水中做不好滑行动作是因为身体没有形成良好的流线型姿势。       （     ）</p>
+<p>参考答案：正确</p>
+<p>53、游泳时的呼吸方法与陆上习惯的呼吸方法是一样的。              </p>
+<p>参考答案：错误</p>
+<p>54、自由泳手臂划水动作包括入水、抱水、划水、推水、提肘出水和空中移臂六个环节。                                  </p>
+<p>参考答案：正确</p>
+<p>55、漂浮是学习各种泳姿的基础。                            </p>
+<p>参考答案：正确</p>
+<p>56、蝶泳转身与到达的手臂触壁要求与蛙泳一样。              </p>
+<p>参考答案：正确</p>
+<p>57、游泳时最容易抽筋的部位是脚趾、小腿和胃部。           </p>
+<p>参考答案：正确</p>
+<p>58、游泳比赛的中途不可以站起来。                          </p>
+<p>参考答案：错误</p>
+<p>59、接力比赛时，应在队友碰壁后才能出发。                 </p>
+<p>参考答案：正确</p>
+<p>60、参加室外冬泳活动前应先做好生理和心理的准备练习。      </p>
+<p>参考答案：正确</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../体育运动/体育运动.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../体育运动/羽毛球.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../体育运动/体育运动.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../体育运动/羽毛球.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

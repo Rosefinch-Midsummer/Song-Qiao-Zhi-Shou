@@ -1,0 +1,562 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>团体操 - 松乔之寿</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">松乔之寿</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="团体操"><a class="header" href="#团体操">团体操</a></h1>
+<ul>
+<li><a href="#%E7%90%86%E8%AE%BA%E8%80%83%E8%AF%95">理论考试</a>
+<ul>
+<li><a href="#%E5%88%A4%E6%96%AD%E9%A2%98">判断题</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E9%94%99%E8%AF%AF">参考答案： 错误</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E9%94%99%E8%AF%AF-1">参考答案： 错误</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-1">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E9%94%99%E8%AF%AF-2">参考答案： 错误</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E9%94%99%E8%AF%AF-3">参考答案： 错误</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-2">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-3">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E9%94%99%E8%AF%AF-4">参考答案： 错误</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-4">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-5">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E9%94%99%E8%AF%AF-5">参考答案： 错误</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-6">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E9%94%99%E8%AF%AF-6">参考答案： 错误</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-7">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E9%94%99%E8%AF%AF-7">参考答案： 错误</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E9%94%99%E8%AF%AF-8">参考答案： 错误</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-8">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E9%94%99%E8%AF%AF-9">参考答案： 错误</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E9%94%99%E8%AF%AF-10">参考答案： 错误</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-9">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-10">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-11">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-12">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E9%94%99%E8%AF%AF-11">参考答案： 错误</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-13">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E9%94%99%E8%AF%AF-12">参考答案： 错误</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-14">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-15">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-16">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E9%94%99%E8%AF%AF-13">参考答案： 错误</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E9%94%99%E8%AF%AF-14">参考答案： 错误</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E9%94%99%E8%AF%AF-15">参考答案： 错误</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-17">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-18">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-19">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E9%94%99%E8%AF%AF-16">参考答案： 错误</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-20">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E9%94%99%E8%AF%AF-17">参考答案： 错误</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-21">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E9%94%99%E8%AF%AF-18">参考答案： 错误</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-22">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-23">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E9%94%99%E8%AF%AF-19">参考答案： 错误</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-24">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-25">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-26">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E9%94%99%E8%AF%AF-20">参考答案： 错误</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-27">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E9%94%99%E8%AF%AF-21">参考答案： 错误</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-28">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-29">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-30">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E9%94%99%E8%AF%AF-22">参考答案： 错误</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-31">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-32">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E9%94%99%E8%AF%AF-23">参考答案： 错误</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-33">参考答案： 正确</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E9%94%99%E8%AF%AF-24">参考答案： 错误</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-%E6%AD%A3%E7%A1%AE-34">参考答案： 正确</a>
+<ul>
+<li><a href="#%E5%8D%95%E9%80%89%E9%A2%98">单选题</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AD%94%E6%A1%88d">答案：D</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88c">答案：C</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88c-1">答案：C</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88c-2">答案：C</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88a">答案：A</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88a-1">答案：A</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88c-3">答案：C</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88a-2">答案：A</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88b">答案：B</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88b-1">答案：B</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88a-3">答案：A</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88c-4">答案：C</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88b-2">答案：B</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88a-4">答案：A</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88b-3">答案：B</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88c-5">答案：C</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88a-5">答案：A</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88a-6">答案：A</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88b-4">答案：B</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88b-5">答案：B</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88a-7">答案：A</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88c-6">答案：C</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88a-8">答案：A</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88b-6">答案：B</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88a-9">答案：A</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88c-7">答案：C</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88c-8">答案：C</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88b-7">答案：B</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88a-10">答案：A</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88b-8">答案：B</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88a-11">答案：A</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88c-9">答案：C</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88b-9">答案：B</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88a-12">答案：A</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88c-10">答案：C</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88a-13">答案：A</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88b-10">答案：B</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88b-11">答案：B</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88a-14">答案：A</a></li>
+<li><a href="#%E7%AD%94%E6%A1%88c-11">答案：C</a></li>
+</ul>
+<h2 id="理论考试"><a class="header" href="#理论考试">理论考试</a></h2>
+<h3 id="判断题"><a class="header" href="#判断题">判断题</a></h3>
+<p>1、团体操内容比较单一（      ）</p>
+<h2 id="参考答案-错误"><a class="header" href="#参考答案-错误">参考答案： 错误</a></h2>
+<p>2、双杠支撑是评价肌肉耐力的方法（      ）</p>
+<h2 id="参考答案-错误-1"><a class="header" href="#参考答案-错误-1">参考答案： 错误</a></h2>
+<p>3、正压腿、侧压腿等是下肢柔韧素质的练习方法（      ）</p>
+<h2 id="参考答案-正确"><a class="header" href="#参考答案-正确">参考答案： 正确</a></h2>
+<p>4、下肢快速力量练习主要有：原地连续纵跳、连续团身跳、原地屈体分腿跳、快速踢腿或连续吸腿跳等（      ）</p>
+<h2 id="参考答案-正确-1"><a class="header" href="#参考答案-正确-1">参考答案： 正确</a></h2>
+<p>5、冷敷能缓解和消除肌肉酸痛（      ）</p>
+<h2 id="参考答案-错误-2"><a class="header" href="#参考答案-错误-2">参考答案： 错误</a></h2>
+<p>6、团体操动作简单，不需要各关节肌肉的协同配合就能完成（      ）</p>
+<h2 id="参考答案-错误-3"><a class="header" href="#参考答案-错误-3">参考答案： 错误</a></h2>
+<p>7、进行力量练习时，每周至少练习三次，每次至少练习五组，每组之间间隔2—3分钟，每次练习之后要放松你的肌肉（      ）</p>
+<h2 id="参考答案-正确-2"><a class="header" href="#参考答案-正确-2">参考答案： 正确</a></h2>
+<p>8、运动强度的大小一般可以通过心率指标来确定（      ）</p>
+<h2 id="参考答案-正确-3"><a class="header" href="#参考答案-正确-3">参考答案： 正确</a></h2>
+<p>9、下肢力量训练常用动作主要有俯卧撑、倒立爬行等（      ）</p>
+<h2 id="参考答案-错误-4"><a class="header" href="#参考答案-错误-4">参考答案： 错误</a></h2>
+<p>10、团体操肩部动作包括提肩、收肩、沉肩、展肩、振肩、绕和绕环（      ）</p>
+<h2 id="参考答案-正确-4"><a class="header" href="#参考答案-正确-4">参考答案： 正确</a></h2>
+<p>11、团体操练习过程中的身体姿态取决于肌肉用力的感觉和程度（      ）</p>
+<h2 id="参考答案-正确-5"><a class="header" href="#参考答案-正确-5">参考答案： 正确</a></h2>
+<p>12、团体操创编时动作可以比较单一（      ）</p>
+<h2 id="参考答案-错误-5"><a class="header" href="#参考答案-错误-5">参考答案： 错误</a></h2>
+<p>13、团体操专项素质的训练要遵循合理安排负荷原则（      ）</p>
+<h2 id="参考答案-正确-6"><a class="header" href="#参考答案-正确-6">参考答案： 正确</a></h2>
+<p>14、团体操的素质训练可以不考虑练习者的个体差异（      ）</p>
+<h2 id="参考答案-错误-6"><a class="header" href="#参考答案-错误-6">参考答案： 错误</a></h2>
+<p>15、团体操的音乐节奏与速度严格控制的控制着动作的节奏与速度（      ）</p>
+<h2 id="参考答案-正确-7"><a class="header" href="#参考答案-正确-7">参考答案： 正确</a></h2>
+<p>16、团体操的创编可以不以创新性为原则（      ）</p>
+<h2 id="参考答案-错误-7"><a class="header" href="#参考答案-错误-7">参考答案： 错误</a></h2>
+<p>17、团体操的教学和练习是一个由易到难，由简到繁一成不变的过程（      ）</p>
+<h2 id="参考答案-错误-8"><a class="header" href="#参考答案-错误-8">参考答案： 错误</a></h2>
+<p>18、团体操锻炼后身体稍有疲劳和酸痛，但经过休息后很快就能恢复（      ）</p>
+<h2 id="参考答案-正确-8"><a class="header" href="#参考答案-正确-8">参考答案： 正确</a></h2>
+<p>19、在做团体操练习时可以不注意动作的力度、节奏和速度（      ）</p>
+<h2 id="参考答案-错误-9"><a class="header" href="#参考答案-错误-9">参考答案： 错误</a></h2>
+<p>20、团体操动作简单，不需要各关节肌肉的协同配合就能完成（      ）</p>
+<h2 id="参考答案-错误-10"><a class="header" href="#参考答案-错误-10">参考答案： 错误</a></h2>
+<p>21、仰卧起坐主要锻炼的是腹部肌肉力量（      ）</p>
+<h2 id="参考答案-正确-9"><a class="header" href="#参考答案-正确-9">参考答案： 正确</a></h2>
+<p>22、由于练习者在身体形态、运动素质等方面存在着个体差异，因此身体素质的训练要有针对性（      ）</p>
+<h2 id="参考答案-正确-10"><a class="header" href="#参考答案-正确-10">参考答案： 正确</a></h2>
+<p>23、成套团体操来源于徒手体操、艺术体操和舞蹈等的动作（      ）</p>
+<h2 id="参考答案-正确-11"><a class="header" href="#参考答案-正确-11">参考答案： 正确</a></h2>
+<p>24、腰部和头颈动作都由屈、转、绕和绕环动作组成（      ）</p>
+<h2 id="参考答案-正确-12"><a class="header" href="#参考答案-正确-12">参考答案： 正确</a></h2>
+<p>25、团体操中的手型较为单一，是从芭蕾舞发展而来的（      ）</p>
+<h2 id="参考答案-错误-11"><a class="header" href="#参考答案-错误-11">参考答案： 错误</a></h2>
+<p>26、手型是手臂动作的延伸和表现，运用得好，会使团体操动作更加丰富多彩，生动活泼，更具有感染力（      ）</p>
+<h2 id="参考答案-正确-13"><a class="header" href="#参考答案-正确-13">参考答案： 正确</a></h2>
+<p>27、并拢式手型是指五指完全伸直，相互并拢（      ）</p>
+<h2 id="参考答案-错误-12"><a class="header" href="#参考答案-错误-12">参考答案： 错误</a></h2>
+<p>28、基本步伐是团体操动作中最小的单位（      ）</p>
+<h2 id="参考答案-正确-14"><a class="header" href="#参考答案-正确-14">参考答案： 正确</a></h2>
+<p>29、通过基本步伐的练习，能培养练习者的协调性，韵律感（      ）</p>
+<h2 id="参考答案-正确-15"><a class="header" href="#参考答案-正确-15">参考答案： 正确</a></h2>
+<p>30、开合跳要求跳起分开落地，髋部、脚尖外开，膝关节在同方向弯曲；蹬地还原时，脚跟并拢，膝缓冲，动作要起伏、连贯、有弹性（      ）</p>
+<h2 id="参考答案-正确-16"><a class="header" href="#参考答案-正确-16">参考答案： 正确</a></h2>
+<p>31、做弹踢腿跳动作时，动力腿屈膝后摆，两膝之间要并拢，前弹时要非常用力，使膝关节、髋关节运动伸展开来，然后换另一腿（      ）</p>
+<h2 id="参考答案-错误-13"><a class="header" href="#参考答案-错误-13">参考答案： 错误</a></h2>
+<p>32、做后踢腿跳动作时一腿屈膝后摆，髋和膝在一条线上，跑跳过程中膝、踝关节充分缓冲，手臂不可自然摆动（      ）</p>
+<h2 id="参考答案-错误-14"><a class="header" href="#参考答案-错误-14">参考答案： 错误</a></h2>
+<p>33、做弓步跳动作时一腿后摆由脚尖过渡到前脚掌，脚后跟着地，脚尖方向向前，身体稍前倾，立腰收腹，还原时屈膝缓冲，换另腿做，方向相反（      ）</p>
+<h2 id="参考答案-错误-15"><a class="header" href="#参考答案-错误-15">参考答案： 错误</a></h2>
+<p>34、无冲击力步伐动作是指两腿始终接触地面的动作（      ）</p>
+<h2 id="参考答案-正确-17"><a class="header" href="#参考答案-正确-17">参考答案： 正确</a></h2>
+<p>35、并腿类动作两腿始终接触地面，并且两脚始终并拢，脚尖朝前。技术要点：膝关节要有弹性的屈伸，把握好弹动的技术（      ）</p>
+<h2 id="参考答案-正确-18"><a class="header" href="#参考答案-正确-18">参考答案： 正确</a></h2>
+<p>36、膝弹动时两腿并拢，膝关节有弹性的屈伸。膝关节由弯曲到还原，还原时膝关节应处于直立状态（      ）</p>
+<h2 id="参考答案-正确-19"><a class="header" href="#参考答案-正确-19">参考答案： 正确</a></h2>
+<p>37、做弓步动作时两脚前后分开，平行站立，下蹲。半蹲时，后腿膝关节向下，大腿垂直于地面；重心在两脚之间，前腿膝关节尽力弯曲，膝关节可以超过脚尖（      ）</p>
+<h2 id="参考答案-错误-16"><a class="header" href="#参考答案-错误-16">参考答案： 错误</a></h2>
+<p>38、半蹲时两腿有控制的屈和伸，可分为并腿半蹲和分腿半蹲（      ）</p>
+<h2 id="参考答案-正确-20"><a class="header" href="#参考答案-正确-20">参考答案： 正确</a></h2>
+<p>39、分腿半蹲时两腿左右分开稍大于肩，脚尖稍外开，膝关节角度不超过90度，方向与脚尖方向一致，臀部向后45度方向下蹲，上体保持直立（      ）</p>
+<h2 id="参考答案-错误-17"><a class="header" href="#参考答案-错误-17">参考答案： 错误</a></h2>
+<p>40、无冲击力步伐组合是由一些简单无冲击力步伐组编而成的，其中包括膝关节弹动、踝关节弹动、半蹲、弓步、迈步移重心等步伐（      ）</p>
+<h2 id="参考答案-正确-21"><a class="header" href="#参考答案-正确-21">参考答案： 正确</a></h2>
+<p>41、无冲击力步伐组合整个组合由8个8拍组成，分为左右两个方向完成动作，右边完成4个4拍之后，再完成左边４个8拍，动作完全相同（      ）</p>
+<h2 id="参考答案-错误-18"><a class="header" href="#参考答案-错误-18">参考答案： 错误</a></h2>
+<p>42、无冲击力步伐组合简单易学，是在无冲击力步伐的基础上，加上手臂的多种形式变化以及身体不同方向的变化组合而成的（      ）</p>
+<h2 id="参考答案-正确-22"><a class="header" href="#参考答案-正确-22">参考答案： 正确</a></h2>
+<p>43、无冲击力步伐组合能够使上下肢得到基本的锻炼，提高关节的灵活性和上下肢的协调性，反复练习还能够达到基本的热身效果（      ）</p>
+<h2 id="参考答案-正确-23"><a class="header" href="#参考答案-正确-23">参考答案： 正确</a></h2>
+<p>44、动作组合因灵活多变故不适合于刚刚参加团体操锻炼的人群（      ）</p>
+<h2 id="参考答案-错误-19"><a class="header" href="#参考答案-错误-19">参考答案： 错误</a></h2>
+<p>45、低冲击力步伐动作是指在做动作时一脚着地，另一脚离地的动作（      ）</p>
+<h2 id="参考答案-正确-24"><a class="header" href="#参考答案-正确-24">参考答案： 正确</a></h2>
+<p>46、低冲击力步伐动作是目前团体操编排运用最多的动作类型，主要有踏步类、点地类、迈步类和抬腿类四种类型（      ）</p>
+<h2 id="参考答案-正确-25"><a class="header" href="#参考答案-正确-25">参考答案： 正确</a></h2>
+<p>47、踏步类动作根据动作的需要，躯干部分要有适当的起伏变化，与基本步伐协调（      ）</p>
+<h2 id="参考答案-正确-26"><a class="header" href="#参考答案-正确-26">参考答案： 正确</a></h2>
+<p>48、做一字步动作时一脚向前一步，另一脚并于前脚，然后依次还原；向前迈步时，脚跟先着地，过渡到全脚掌；前后均不要有并腿过程；每一拍动作膝关节始终有弹性地缓冲（      ）</p>
+<h2 id="参考答案-错误-20"><a class="header" href="#参考答案-错误-20">参考答案： 错误</a></h2>
+<p>49、团体操创编的基本原则，主要体现在身体各部位参与活动和动作的时空变化丰富两个方面（      ）</p>
+<h2 id="参考答案-正确-27"><a class="header" href="#参考答案-正确-27">参考答案： 正确</a></h2>
+<p>50、团体操动作在一定的时空中进行，它的空间表象主要体现在动作的方向、路线、幅度、深度和力度五个方面（      ）</p>
+<h2 id="参考答案-错误-21"><a class="header" href="#参考答案-错误-21">参考答案： 错误</a></h2>
+<p>51、若具备一定的器材设备，可创编一些轻器械团体操，以丰富操的内容，变化动作形式（      ）</p>
+<h2 id="参考答案-正确-28"><a class="header" href="#参考答案-正确-28">参考答案： 正确</a></h2>
+<p>52、高校体育教育的价值超出学生时期，具有终身的意义（      ）</p>
+<h2 id="参考答案-正确-29"><a class="header" href="#参考答案-正确-29">参考答案： 正确</a></h2>
+<p>53、关节的活动范围主要取决于关节本身的装置结构，跨过关节的肌肉、肌腱、韧带等软组织的伸展性主要通过合理的训练获得（      ）</p>
+<h2 id="参考答案-正确-30"><a class="header" href="#参考答案-正确-30">参考答案： 正确</a></h2>
+<p>54、根据肌肉收缩形式,力量可划分为最大力量、速度力量和力量耐力（      ）</p>
+<h2 id="参考答案-错误-22"><a class="header" href="#参考答案-错误-22">参考答案： 错误</a></h2>
+<p>55、有氧耐力是团体操练习者运动能力的基础（      ）</p>
+<h2 id="参考答案-正确-31"><a class="header" href="#参考答案-正确-31">参考答案： 正确</a></h2>
+<p>56、灵敏素质在团体操中主要表现为身体的协调能力（      ）</p>
+<h2 id="参考答案-正确-32"><a class="header" href="#参考答案-正确-32">参考答案： 正确</a></h2>
+<p>57、“屈臂”是指前臂与上臂角度不断的增大（      ）</p>
+<h2 id="参考答案-错误-23"><a class="header" href="#参考答案-错误-23">参考答案： 错误</a></h2>
+<p>58、团体操专项动作速度可以通过加快音乐节奏训练（      ）</p>
+<h2 id="参考答案-正确-33"><a class="header" href="#参考答案-正确-33">参考答案： 正确</a></h2>
+<p>59、“前屈”是指低头，下颌对准肩部，还原（      ）</p>
+<h2 id="参考答案-错误-24"><a class="header" href="#参考答案-错误-24">参考答案： 错误</a></h2>
+<p>60、躯干柔韧训练需常用不向方向的压、振、摆、控等方式进行（      ）</p>
+<h2 id="参考答案-正确-34"><a class="header" href="#参考答案-正确-34">参考答案： 正确</a></h2>
+<h3 id="单选题"><a class="header" href="#单选题">单选题</a></h3>
+<p>61、最早的操舞运动可以追溯到两千多年以前，在那时（   ）人十分喜欢通过跑跳、柔软体操以及健美舞蹈等很多体育项目对人体美进行锻炼，他们对于人体美的喜欢闻名世界</p>
+<p>A. 古印度          B. 古罗马        C. 巴西   D. 古希腊</p>
+<h2 id="答案d"><a class="header" href="#答案d">答案：D</a></h2>
+<p>62、团体操练习可以增进健康，可为社会不同年龄层次的人所采用；根据练习对象的需求进行创编，动作简单易学，节奏稍慢，时间长短不等，可编排（        ）</p>
+<p>A. 5--20分钟          B. 30分钟        C. 5--60分钟   D. 10--30分钟</p>
+<h2 id="答案c"><a class="header" href="#答案c">答案：C</a></h2>
+<p>63、在我国经济不断发展的新形势下，(     )早已成为人们生活中最为主要的话题</p>
+<p>A. 经济          B. 就业        C. 健康   D. 教育</p>
+<h2 id="答案c-1"><a class="header" href="#答案c-1">答案：C</a></h2>
+<p>64、健身操运动可（  ）心血管机能</p>
+<p>A. 降低          B. 保持        C. 提高</p>
+<h2 id="答案c-2"><a class="header" href="#答案c-2">答案：C</a></h2>
+<p>65、在保持（    ）运动强度的条件下，团体操运动会消耗体内多余的脂肪</p>
+<p>A. 中等          B. 低        C. 超负荷</p>
+<h2 id="答案a"><a class="header" href="#答案a">答案：A</a></h2>
+<p>66、人体的基本运动素质包括速度、力量、耐力、灵敏和（     ）</p>
+<p>A. 柔韧          B. 爆发力        C. 弹跳</p>
+<h2 id="答案a-1"><a class="header" href="#答案a-1">答案：A</a></h2>
+<p>67、团体操柔韧素质的训练方法主要有主动性拉伸练习、被动性拉伸练习和（ ）</p>
+<p>A. 动力性练习          B. 静力性练习        C. PNF牵拉练习</p>
+<h2 id="答案c-3"><a class="header" href="#答案c-3">答案：C</a></h2>
+<p>68、对于大学生来说，每次活动的时间应不少于（   ）</p>
+<p>A. 20--30分钟          B. 10--20分钟        C. 60分钟以上</p>
+<h2 id="答案a-2"><a class="header" href="#答案a-2">答案：A</a></h2>
+<p>69、团体操的种类和练习形式将更加（      ）</p>
+<p>A. 简单化          B. 多样化        C. 一层不变</p>
+<h2 id="答案b"><a class="header" href="#答案b">答案：B</a></h2>
+<p>70、根据力量与体重的关系,可以分为绝对力量和（    ）</p>
+<p>A. 最大力量          B. 相对力量        C. 快速力量</p>
+<h2 id="答案b-1"><a class="header" href="#答案b-1">答案：B</a></h2>
+<p>71、耐力训练以（     ）为主</p>
+<p>A. 间歇训练法          B. 重复训练法        C. 循环训练法</p>
+<h2 id="答案a-3"><a class="header" href="#答案a-3">答案：A</a></h2>
+<p>72、（      ）是保证健身操练习效果的关键</p>
+<p>A. 客观化          B. 主观化        C. 科学化</p>
+<h2 id="答案c-4"><a class="header" href="#答案c-4">答案：C</a></h2>
+<p>73、团体操锻炼后如果排汗量增多，甚至出现夜间盗汗，则是身体（    ）的表现</p>
+<p>A. 过度兴奋          B. 疲劳        C. 原因不明</p>
+<h2 id="答案b-2"><a class="header" href="#答案b-2">答案：B</a></h2>
+<p>74、团体操的基本动作练习除单个动作外还包括（    ）</p>
+<p>A. 组合动作          B. 多个动作        C. 复杂动作</p>
+<h2 id="答案a-4"><a class="header" href="#答案a-4">答案：A</a></h2>
+<p>75、团体操弹性动作练习时要注意（     ）肌肉的收缩和放松</p>
+<p>A. 保持          B. 控制        C. 灵活</p>
+<h2 id="答案b-3"><a class="header" href="#答案b-3">答案：B</a></h2>
+<p>76、团体操运动中良好的节奏是（       ）控制能力的表现</p>
+<p>A. 大脑          B. 腿部        C. 肌肉</p>
+<h2 id="答案c-5"><a class="header" href="#答案c-5">答案：C</a></h2>
+<p>77、上肢动作中的“举”是指臂应（    ）向某方向抬起</p>
+<p>A. 伸直          B. 自然        C. 放松</p>
+<h2 id="答案a-5"><a class="header" href="#答案a-5">答案：A</a></h2>
+<p>78、运动负荷包括运动强度和（       ）</p>
+<p>A. 运动量          B. 运动时间        C. 运动次数</p>
+<h2 id="答案a-6"><a class="header" href="#答案a-6">答案：A</a></h2>
+<p>79、团体操运动可（      ）神经系统的机能</p>
+<p>A. 保持          B. 改善        C. 降低</p>
+<h2 id="答案b-4"><a class="header" href="#答案b-4">答案：B</a></h2>
+<p>80、团体操锻炼中补充水分最好的方法是（      ）</p>
+<p>A. 多量少饮          B. 少量多饮        C. 不饮用</p>
+<h2 id="答案b-5"><a class="header" href="#答案b-5">答案：B</a></h2>
+<p>81、团体操身体素质训练应遵循（     ）原则</p>
+<p>A. 合理负荷          B. 大运动量        C. 大强度</p>
+<h2 id="答案a-7"><a class="header" href="#答案a-7">答案：A</a></h2>
+<p>82、团体操运动能促进（      ）健康</p>
+<p>A. 身体          B. 心理        C. 身心</p>
+<h2 id="答案c-6"><a class="header" href="#答案c-6">答案：C</a></h2>
+<p>83、柔韧素质是指人体（）活动的幅度及相关肌肉、肌腱和韧带等软组织的伸展能力</p>
+<p>A. 各关节          B. 各肌肉        C. 骨骼</p>
+<h2 id="答案a-8"><a class="header" href="#答案a-8">答案：A</a></h2>
+<p>84、团体操耐力素质训练包含肌肉耐力（    ）和神经过程耐力</p>
+<p>A. 有氧耐力          B. 心血管耐力        C. 无氧耐力</p>
+<h2 id="答案b-6"><a class="header" href="#答案b-6">答案：B</a></h2>
+<p>85、完成团体操练习后，应做一些（    ）活动</p>
+<p>A. 放松          B. 剧烈        C. 1000米</p>
+<h2 id="答案a-9"><a class="header" href="#答案a-9">答案：A</a></h2>
+<p>86、团体操的专项身体素质训练应与（     ）相结合</p>
+<p>A. 协调性          B. 音乐        C. 专项技术动作</p>
+<h2 id="答案c-7"><a class="header" href="#答案c-7">答案：C</a></h2>
+<p>87、患重感冒时最好（     ）运动</p>
+<p>A. 保持          B. 加倍        C. 停止</p>
+<h2 id="答案c-8"><a class="header" href="#答案c-8">答案：C</a></h2>
+<p>88、团体操初练者，心率大约掌握在（     ）总练习时间不超过1小时</p>
+<p>A. 100次/分              B. 130次/分         C. 110次/分</p>
+<h2 id="答案b-7"><a class="header" href="#答案b-7">答案：B</a></h2>
+<p>89、团体操锻炼过程中应（     ）补充体内流失的水分</p>
+<p>A. 及时          B. 禁止        C. 无所谓</p>
+<h2 id="答案a-10"><a class="header" href="#答案a-10">答案：A</a></h2>
+<p>90、团体操运动对人际关系具有（     ） 作用</p>
+<p>A. 保持          B. 促进        C. 降低</p>
+<h2 id="答案b-8"><a class="header" href="#答案b-8">答案：B</a></h2>
+<p>91、长期空腹锻炼，会导致体重（     ）下降，产生疾患，影响健康</p>
+<p>A. 急剧          B. 均匀        C. 慢慢</p>
+<h2 id="答案a-11"><a class="header" href="#答案a-11">答案：A</a></h2>
+<p>92、一般情况下：团体操在做完成套练习后的（     ）分钟内，心率可恢复到安静水平</p>
+<p>A. 3--5          B. 20--30        C. 10--15</p>
+<h2 id="答案c-9"><a class="header" href="#答案c-9">答案：C</a></h2>
+<p>93、参加长时间、低难度的健身操运动时，能量主要由（      ）代谢系统功能</p>
+<p>A. 无氧          B. 有氧        C. 磷酸原</p>
+<h2 id="答案b-9"><a class="header" href="#答案b-9">答案：B</a></h2>
+<p>94、团体操的音乐速度一般为每10秒（     ）拍</p>
+<p>A. 22--26          B. 18--22        C. 26--28</p>
+<h2 id="答案a-12"><a class="header" href="#答案a-12">答案：A</a></h2>
+<p>95、团体操（     ）能加强对动作的记忆，对动作美的欣赏</p>
+<p>A. 技术          B. 服装        C. 音乐</p>
+<h2 id="答案c-10"><a class="header" href="#答案c-10">答案：C</a></h2>
+<p>96、（         ）编排是团体操发展的永恒主题</p>
+<p>A. 创新          B. 艺术        C. 全面</p>
+<h2 id="答案a-13"><a class="header" href="#答案a-13">答案：A</a></h2>
+<p>97、团体操表演特点（      ）</p>
+<p>A. 人数多、场面小          B. 人数多、场面大        C. 人数少、场面小</p>
+<h2 id="答案b-10"><a class="header" href="#答案b-10">答案：B</a></h2>
+<p>98、团体操是一项（      ）的操练活动</p>
+<p>A. 个体性          B. 团体性        C. 两者皆可</p>
+<h2 id="答案b-11"><a class="header" href="#答案b-11">答案：B</a></h2>
+<p>99、表演和团队精神的一致性是指集体动作整齐，每个人在完成动作的（      ）和表现力上一致。</p>
+<p>A. 时间、空间、能力          B. 力度、幅度        C. 速度、力度</p>
+<h2 id="答案a-14"><a class="header" href="#答案a-14">答案：A</a></h2>
+<p>100、团体操按规模分类，可分为：（            ）</p>
+<p>A. 单场次、多场次          B. 室内、室外        C. 大、中、小型</p>
+<h2 id="答案c-11"><a class="header" href="#答案c-11">答案：C</a></h2>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../体育运动/乒乓球.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../看杀潘安/看杀潘安.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../体育运动/乒乓球.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../看杀潘安/看杀潘安.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,474 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>如何延年益寿 - 松乔之寿</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">松乔之寿</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="如何延年益寿"><a class="header" href="#如何延年益寿">如何延年益寿？</a></h1>
+<ul>
+<li><a href="#%E9%99%84%E5%BD%95%E4%B8%80%E6%8A%97%E8%A1%B0%E8%80%81%E7%89%B9%E5%88%AB%E6%9C%89%E6%95%88%E7%9A%84%E6%96%B9%E6%B3%95%E6%98%AF%E4%BB%80%E4%B9%88">附录一抗衰老特别有效的方法是什么？</a>
+<ul>
+<li><a href="#%E8%AF%BE%E9%A2%98%E4%B8%80%E5%85%A8%E5%B1%80%E6%8A%97%E8%A1%B0%E8%80%81%E5%86%85%E8%84%8F%E5%A4%A7%E8%84%91%E7%AD%89%E6%A0%B8%E5%BF%83%E5%99%A8%E5%AE%98">课题一：全局抗衰老（内脏/大脑等核心器官）</a></li>
+<li><a href="#%E8%AF%BE%E9%A2%98%E4%BA%8C%E9%A2%9C%E5%80%BC%E6%8A%97%E8%A1%B0%E8%80%81%E5%B1%80%E9%83%A8%E6%8A%97%E8%A1%B0%E8%80%81">课题二：颜值抗衰老（局部抗衰老）</a></li>
+<li><a href="#%E8%BD%BB%E6%96%AD%E9%A3%9F%E7%9A%84%E6%96%B9%E6%B3%95">轻断食的方法</a></li>
+<li><a href="#%E9%87%8D%E7%96%BE%E6%97%A9%E7%AD%9B%E9%9D%9E%E5%B8%B8%E9%87%8D%E8%A6%81">重疾早筛：非常重要</a></li>
+</ul>
+</li>
+<li><a href="#%E9%99%84%E5%BD%95%E4%BA%8C%E7%9C%8B%E5%AE%8Cbbc%E7%BA%AA%E5%BD%95%E7%89%87%E5%A6%82%E4%BD%95%E5%BB%B6%E7%BC%93%E8%A1%B0%E8%80%81%E5%8F%91%E7%8E%B0%E8%8A%B1%E5%9C%A8%E8%84%B8%E4%B8%8A%E7%9A%84%E9%92%B1%E9%83%BD%E7%99%BD%E7%9E%8E%E4%BA%86">附录二看完BBC纪录片《如何延缓衰老》，发现花在脸上的钱都白瞎了</a>
+<ul>
+<li><a href="#%E7%AC%AC%E4%B8%80%E9%A1%B9%E6%98%AF%E9%A2%9C%E8%89%B2%E9%B2%9C%E8%89%B3%E7%9A%84%E9%A3%9F%E7%89%A9">第一项是：颜色鲜艳的食物。</a></li>
+<li><a href="#%E7%AC%AC%E4%BA%8C%E9%A1%B9%E6%98%AF%E8%8B%A6%E5%91%B3%E7%9A%84%E8%94%AC%E8%8F%9C">第二项是：苦味的蔬菜。</a></li>
+<li><a href="#%E7%AC%AC%E4%B8%89%E9%A1%B9%E6%98%AF%E9%B1%BC%E7%B1%BB">第三项是：鱼类。</a></li>
+<li><a href="#%E7%AC%AC%E5%9B%9B%E9%A1%B9%E5%B0%B1%E6%98%AF%E8%AE%A9%E5%A4%A7%E5%AE%B6%E8%A7%84%E9%81%BF%E7%9A%84%E9%A3%9F%E7%89%A9">第四项就是让大家规避的食物：</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="附录一抗衰老特别有效的方法是什么"><a class="header" href="#附录一抗衰老特别有效的方法是什么">附录一抗衰老特别有效的方法是什么？</a></h1>
+<p><strong>Author:</strong> [攀登的海龟]</p>
+<p><strong>Link:</strong> [https://www.zhihu.com/question/534902853/answer/2567223501]</p>
+<blockquote>
+<p>作为一名博士，谈谈自己的看法。</p>
+</blockquote>
+<hr />
+<h2 id="课题一全局抗衰老内脏大脑等核心器官"><a class="header" href="#课题一全局抗衰老内脏大脑等核心器官">课题一：全局抗衰老（内脏/大脑等核心器官）</a></h2>
+<ol start="5">
+<li>**热量限制。**只吃七分饱。小白鼠少吃30%，寿命延长30%。蛋白质，脂肪和碳水中，减掉的应当是碳水。</li>
+<li><strong>激活几个关键的抗衰老通路</strong>：<strong>AMPK</strong>、<strong>Nrf2</strong>、<strong>细胞自噬</strong>。会让长寿蛋白<strong>Sirtuins</strong>和基因修复酶<strong>PARP1</strong>和长寿蛋白<strong>FoxO</strong>有效抗衰。激活方式下面会讲。注意：人体内这样的抗衰老通路有上百个，最关键为上述几个，它们之间有关联性，比如轻断食会激活AMPK，同时也会激活细胞自噬。再比如当AMPK激活的时候，上百个抗衰通路也会不同程度启动。对于非专业人士来说，可以简单理解为：AMPK在抗衰老/修复基因损伤，Nrf2在排毒/抗癌，细胞自噬在清除衰老细胞/僵尸细胞。</li>
+<li><strong>间歇性断食</strong>，又称<strong>轻断食</strong>。常用方法有，16+8，5+2，隔日轻断食。可激活AMPK、Nrf2、细胞自噬。效果最好，还不花钱，还省了吃饭钱。执行方式下面会讲。</li>
+<li>**服用抗衰老补剂。**比较重要的是NAD+的前体，比如烟酸/NMN/NR，以及AMPK激活剂、Nrf2激活剂，原理同上一条，要花钱，抗衰老效果略逊于上一条。据说烟酸比NMN和NR效果更好，而且才几块钱一瓶。又据说NR在提升NAD+浓度同时，也会提高NAD+代谢废料烟酰胺的浓度，反而影响抗衰老。不过烟酸有红热反应。</li>
+<li><strong>控制蛋白质摄入总量。<strong>长期低蛋白会营养不良，但摄入过量蛋白，会激活</strong>mTor</strong>引发衰老，高蛋白高碳水无氧力量训练撸铁，激活mTor加速衰老（mTor激活的好处是强化肌肉增长，增强性欲和性功能等，是动物摄入丰富蛋白质营养时的扩张行为，有利于基因延续，但对个体寿命不利，加速细胞分裂，是一个衰老通路。AMPK和mtor是相反的，AMPK是环境营养不足时的休眠行为，会降低性欲和性功能，不利于传播自身基因但能长寿，过度AMPK会引发男士ED和女性月经停止，需连续饱食方可恢复）。</li>
+<li><strong>限制碳水总量和禁止摄入快碳</strong>，高GI食物引起糖化反应加速衰老，并且伤害胰岛，还特别影响颜值（手里的奶茶不香了）。</li>
+<li><strong>过量有氧运动加速衰老</strong>，每日步数限定在5公里以下。长跑运动员衰老较快，特别是颜值衰老，伤害来自于体内氧化自由基。可服用抗氧化补剂，比如维生素C，槲皮素，姜黄素，花青素等，剂量要把控好，要达到抗衰最低有效剂量，又不能过量。</li>
+<li>在西藏<strong>高海拔氧气稀薄地区加速衰老</strong>，在低海拔海滨城市，衰老更慢。氧气不足时心肺长期超负荷工作保证氧气供应，零件提前损坏。睡在加压有氧舱，衰老更慢，据说有修复基因端粒效果（目前有争议）。</li>
+<li><strong>身材肥胖加速衰老</strong>，肥胖加重<strong>炎症</strong>，削弱细胞自噬（身体清除僵尸细胞和癌细胞的机制），特别是内脏脂肪高，大肚子。</li>
+<li><strong>吸烟，喝酒，嚼槟榔严重折寿</strong>，是一类致癌物。长期吸入有毒气体，摄入有毒食物饮品，加速衰老。</li>
+<li><strong>熬夜，黑白颠倒，不健康的作息时间，睡眠不足</strong>，都会<strong>加速衰老</strong>。</li>
+<li><strong>压力过大，心情不佳</strong>，诱发皮质醇激素升高，<strong>加速衰老</strong>。</li>
+<li><strong>适度寒冷延缓衰老，过度炎热加速衰老</strong>。</li>
+<li>一些我常吃的补剂（新手切莫盲目效仿）：烟酸、VC、复合VB、姜黄素、槲皮素、辅酶Q10、白芦黎醇、萝卜硫素、番茄红素、叶黄素、护肝片、鱼油丸。个人觉得性价比高的品牌有普丽普莱、NOW、piping Rock，这几个哪个便宜选哪个。烟酸、VC、复合VB用的是OTC的，几块钱一瓶。其中个人感觉略贵的是槲皮素和萝卜硫素（萝卜硫苷+黑芥子酶），但是这两个很重要，钱不能省，槲皮素是AMPK激活剂之王，萝卜硫素是Nrf2激活剂之王，抗癌/排毒之王。有时间但预算有限的，槲皮素自己熬煮虎杖的根并喝汁，萝卜硫素生吃西兰花种子芽或者一天一斤西兰花（效果不如种子芽，清蒸/微波炉，勿水煮）。萝卜硫素不是吃萝卜，只是名字带个萝卜，补充萝卜硫素要吃西兰花，西兰花种子芽里面的浓度比西兰花高得多。（有观点认为西兰花一天一斤影响碘吸收，对甲状腺不好。）天然的萝卜硫素是以萝卜硫苷的形式存在（没用），需要在黑芥子酶催化下在肠道生成萝卜硫素（有用）。萝卜硫苷和黑芥子酶在西兰花里都有，水煮西兰花会让黑芥子酶溶于水中，非要煮食，要把煮菜水喝了。</li>
+</ol>
+<p>总结：选择合理饮食结构，控制蛋白质总量，低碳饮食结构且慢碳水，加上健康优质脂肪，可延缓衰老，例如选择地中海饮食。适度锻炼，改掉不良生活习惯，戒掉不良嗜好，合理社交，保持低欲望，保持心情愉快，选择低海拔、低生活压力、环境优美、空气质量高，医疗条件好的城市生活。合理轻断食，可适度服用一些抗衰老补剂。</p>
+<p>注意：摄入食物营养素的量和比例，需按照下面的资料，根据自身情况精确计算，并根据身体反馈情况动态调整。轻断食的方法，需按下面资料的规则执行，由浅入深，逐步推进，不可在家连续辟谷断食或顿顿水煮青菜。服用抗衰老补剂的种类和剂量，也需要严格把控，原则是宁可不足也不要过量。</p>
+<hr />
+<h2 id="课题二颜值抗衰老局部抗衰老"><a class="header" href="#课题二颜值抗衰老局部抗衰老">课题二：颜值抗衰老（局部抗衰老）</a></h2>
+<p>张韶涵、林心如、李俊基这些明星，都在采用的一些颜值抗衰老方法，可以让明星在40岁50岁还能保持冻龄女神/男神。当然，明星是出于工作需要这样做，这些方法意味着在生活方面，吃住行受到诸多限制，而且要长期坚持，可能会降低一些人的幸福指数。一般人要不要遵循，请自行拿捏。大家有兴趣可以搜一下张韶涵的抗衰老经验。</p>
+<ol start="19">
+<li>低碳水低糖生活，防止皮肤中的胶原蛋白糖化反应，防止AGES生成，AGES是皮肤衰老元凶。人的皮肤由胶原蛋白、弹性蛋白和玻尿酸构成，皮肤内部偶尔会有微损伤，如果糖化胶原蛋白侵入这些缝隙，形成稳定结构，造成永久损伤，皮肤表面一个斑，皮肤下面几大团。AGES还和皱纹、眼袋有一定关系。黑名单包括糖和糖化反应物，例如奶茶（糖）和油炸食品（糖化反应物）。市面上的各种抗糖产品（粉末冲剂、口服液），一般围绕阻止肠道对各种碳水（淀粉、糖）的吸收，以及促进皮肤末端毛细血管循环，增强皮肤废物代谢能力。</li>
+<li>每日补充胶原蛋白肽3000mg，弹性蛋白50mg，补充皮肤营养。液态的吸收率优于固态颗粒，主流的做法是买那种胶原蛋白+弹性蛋白的双蛋白的口服液（有争议，有人说是智商税，不过我在吃，感觉有效果）。胶原蛋白肽原料很便宜，弹性蛋白很重要但较贵，很多商家不舍得添加弹性蛋白（或者概念性添加1mg就说自己加了），加一些杂七杂八的其它便宜货，比如声称加了燕窝，加了某种神奇植物提取物。只要不明确说明加了多少mg弹性蛋白的，或者加的量不足50mg的，都不要买。其中弹性蛋白属日本林兼的鲣鱼弹性蛋白最好，原料2万一公斤，据说现在网上也能单独买到，用小勺子吃。如果不想花钱买，可在家自己炖鱼皮，炖鸡爪和猪蹄效果不佳还长胖（分子量过大）。氨基酸之间通过肽键连接组成蛋白质，小于一定分子量（道尔顿）的蛋白肽，可直接肠道吸收，无需分解为最基本的氨基酸单元。</li>
+<li>防止紫外线，紫外线是皮肤衰老元凶之一，AGES生成的重要推手。户外打伞，防晒霜，衣服帽子遮挡。夏季影子短于身高时最多在阳光下暴露15分钟。长期开车的货车司机，往往左脸50岁颜值，右脸30岁颜值。</li>
+<li>每天早晚涂抹各类护肤品。使用爽肤水、眼霜、精华液、面霜这几样是最低要求，重点是额头抬头纹、眼袋、眼角鱼尾纹、法令纹。最好含有波色因等重度抗衰老成分。</li>
+<li>人在35岁，60岁和75岁三个节点，会陡然衰老，其中35岁是颜值衰老的关键节点，在35岁的前几年，就要做好颜值抗衰老。25岁开始就可以做防初老。</li>
+</ol>
+<hr />
+<h2 id="轻断食的方法"><a class="header" href="#轻断食的方法">轻断食的方法</a></h2>
+<p>16+8轻断食法：每天8个小时内吃东西，其他16个小时只喝水或纯茶或无糖无奶的黑咖啡。例如早上8:00吃第1口，下午4:00吃完最后一口。又例如，早上10点吃第一口，下午6点吃完最后一口。</p>
+<p>5+2轻断食法：一周选择不连续的两天作为断食日，在断食日只吃一顿，热量限制男士低于600卡，女士低于500卡，减肥阶段要极低碳水或生酮（0碳）＋高蛋白，体重维持阶段要极低碳水或生酮（0碳）+高脂。例如4个鸡蛋一斤黄瓜一个番茄正好500卡。不可连续两天断食，吃三天饿一天，再吃两天饿一天，循环往复。例如周一和周五断食。5+2轻断食和16+8轻断食可叠加使用。</p>
+<p>隔日轻断食法：一天吃一天断食，5+2轻断食升级版，断食频率更高，减肥更快，饿的真狠，不适合初学者。隔日轻断食和16+8轻断食可叠加使用。</p>
+<p>轻断食与辟谷断食的区别：超过48小时的连续辟谷断食，会让身体进入饥荒保命模式，降低基础代谢（基础代谢见下文），会有一些副作用。而轻断食不会伤害基础代谢，当身体感觉不对劲的时候，又开始摄入食物，身体来不及反应，不进入饥荒模式。</p>
+<p>———————————————————</p>
+<p>轻断食+低碳饮食，副作用和应对措施</p>
+<p>1，饥饿感，应对：强大意志力，或食用燕麦麸皮、魔芋粉、奇亚籽，大量饮水，欺骗胃。</p>
+<p>2，疲惫焦躁感，严重可致抑郁。应对：强大意志力，循序渐进，有胰岛素抵抗的先解决抵抗问题。</p>
+<p>3，便秘，应对：服用正确的益生菌（有治腹泻或便秘的，搞反了就拉钢蛋，厕所扶墙惨叫）。</p>
+<p>4，胃酸/胆汁过多，应对：多喝水，食用膳食纤维，让胃和胆囊有事可做。</p>
+<p>5，感到寒冷，身体能量不足的表现，特别是手脚远心端。应对：身体好就硬抗，不好就多穿点，热水泡手脚。</p>
+<p>6，脱发：永久伤害，毛囊枯死不复生。身体认为你遇上饥荒快挂了，头发指甲等非核心零件就不供营养了。应对：涂抹米诺地尔汀生发液，补大剂量生物素，口服和涂抹银杏叶、侧柏叶和积雪草萃取物。</p>
+<p>7，性欲下降：暂时的，饱食数日可恢复，接受现实吧。身体认为你遇上饥荒快挂了，会让你节能保命，别想着浪费能量去乱搞。</p>
+<p>———————————————————</p>
+<p>饮食结构：推荐 中蛋白+中量优质脂肪+低碳，蛋白质摄入量，体重公斤数×0.5~2，例如60kg的人，每日蛋白摄入量在30g到120g之间，因为肉类蛋白含量约20%，因此对应肉类为150g到600g之间。超过此阈值，mtor有可能被激活。注意主食和蔬菜中也含有蛋白，计算时不应遗漏。减肥时为防止掉肌肉，应取1.5~2之间，体重维持期为抗衰老，应取1以下0.5以上。</p>
+<p>每日净碳水摄入量，大于130克为平衡膳食，低于130克为低碳饮食，低于50克为极度低碳，低于20克为生酮饮食。如采用16+8轻断食，可执行低碳饮食小于130克，有抗衰老效果。如采用5+2轻断食或隔日轻断食，可在普通日执行低碳饮食小于130克或平衡膳食，在断食日执行极度低碳或生酮饮食。</p>
+<p>算好蛋白质和碳水摄入量后，剩下的热量由优质脂肪来调节。减肥阶段可低脂肪，达到满意体重后，在体重维持阶段，若体重降低则增加优质脂肪，若体重增加则降低优质脂肪。优质脂肪包括深海鱼类脂肪、橄榄油、牛油果、部分坚果等。</p>
+<p>优质碳水：升糖指数GI和GL较低，肠胃缓慢消化和吸收糖，可令胰岛素缓慢释放，且饱腹感强，例如燕麦，玉米，糙米，小麦全麦，黑麦全麦。劣质碳水为精米精面，如白面馒头，GI值高，刺激胰岛素快速释放，饱腹感差。当然更不能直接吃糖，包括白糖，红糖，蜂蜜，葡萄糖，果葡糖浆。</p>
+<p>优质脂肪：</p>
+<p>不饱和脂肪——欧米伽9为优质脂肪，包括橄榄油（特级初榨，烟点低凉拌）、牛油果油（好，贵，可炒菜）、山茶油（好，便宜，可炒菜）。欧米伽3为优质脂肪，包括深海鱼油、海豹油、磷虾油。欧米伽6为劣质脂肪，超市常见植物油（花生油，大豆油，葵花籽油，玉米油等），欧米伽6造成的身体伤害，可被欧米伽3抵消。例如鱼油丸可抵消花生油、大豆油的伤害。欧米伽3的有效成分是EPA和DHA，EPA降血脂，DHA补脑。降血脂的EPA鱼油丸纯度要高，最好80%以上，杂油要少，杂油使EPA降血脂功能大打折扣。DHA无降血脂作用，但可促进婴幼儿脑发育，预防中老年脑退化疾病。</p>
+<p>饱和脂肪——猪油或棕榈油为有争议的脂肪（有人说好有人说坏），椰子油为优质脂肪（中链脂肪，味道怪）</p>
+<p>反式脂肪，为极度劣质脂肪，几个月才能代谢出体外，在血管内壁沉积造成永久伤害。正常油脂在油炸、高温爆炒会产生，另外有精炼植物油、人造奶油、人造黄油、起酥油等，超市包装食物少吃，擦亮眼睛看配料表。另外蛋糕店/面包房普遍用植物性奶油做蛋糕，奶茶店添加植脂末，都是反式脂肪重灾区，却连配料表都不写。</p>
+<p>争议食物：有人说好有人说坏，科学界无定论。争议大的不碰或保守摄入，让别人去当小白鼠。鸡蛋蛋黄的胆固醇，按膳食指南最多每日一个。猪油、棕榈油不碰。这种策略的意义在于，万一将来科学家得出最终结论，这个东西有害，而你已经吃了20年，造成了永久不可逆伤害，岂不捶胸顿足？如今物产丰富，没有什么食物不可替代，安全无争议的食物很多。</p>
+<p>关于饱腹感：奇亚籽，魔芋粉，燕麦麸皮，喝大量水，可在胃中形成膳食纤维悬浊液，抗饿几个小时，热量低到忽略不计。</p>
+<p>关于代糖：赤藓糖醇，甜菊糖苷，罗汉果糖3种可以放心吃，其他的不推荐，比如安赛蜜，阿斯巴甜，三氯蔗糖（蔗糖素），海藻糖等。</p>
+<p>酒精和果糖：酒精伤肝，会造成酒精性脂肪肝，果糖代谢路径和酒精类似，会造成非酒精性脂肪肝，在带甜味的水果中果糖较丰富，不推荐，蜂蜜果糖含量高，不推荐。推荐用大量蔬菜代替水果。果糖比蔗糖危害更大。</p>
+<p>mtor感受器主要是蛋白质摄入量，AMPK感受器主要是血糖和糖原总量，二者不同。蛋白质摄入过量，mtor启动。血糖和肝糖原耗尽，AMPK启动。轻断食的原理就是空腹足够长的时间，拖到血糖和糖原耗尽。AMPK还可被某些运动激发，如HIIT，持续时间较短（太累，做不了多久）。果蝇在饥饿时会优先选择进食而非交配，吃了蛋白质的果蝇会转而交配，只吃了糖的果蝇会继续进食，蛋白质是生物体判断丰年的标准。</p>
+<p>饥饿感：血糖和肝糖原耗尽，会产生胃空虚，眼发黑，心发慌的现象，提醒你去觅食，一般持续15-30分钟，就会停止提醒，转而用脂肪供能，启动AMPK。如果此时食用无热量纯欺骗饥饿感的东西，如茶水，纯魔芋粉，不影响脂肪供能和AMPK启动。</p>
+<p>——————————————————</p>
+<p>热量/卡路里计算+减肥</p>
+<p>纯蛋白质，例如鸡胸肉，100克130大卡。碳水，例如燕麦，100克400大卡。脂肪，例如猪肥肉，100克800~900大卡。脂肪比蛋白质热量要高6~7倍。绿叶蔬菜（膳食纤维），例如黄瓜，100克15大卡，忽略不计。</p>
+<p>人的基础代谢，指的是人躺床上一天啥也不干，保证活着，需要消耗的热量，跟人的身高、体重、年龄、性别，都有关系。大概在1200~1800大卡之间。网上有基础代谢计算器，可输入自己身体数据自行计算。人从事日常办公室活动，也会消耗卡路里。跑步5公里可消耗300卡（不如两瓶可乐的热量），运动消耗卡路里比较有限，人是很节能的生物，减肥中控制饮食比运动更重要。</p>
+<p>每累积3800大卡，增一斤肉，每亏空3800大卡，减一斤肉。</p>
+<p>例如：某白领男，30岁，身高175cm，体重130斤，基础代谢1600大卡，日常办公室活动300卡，不运动，每日消耗1900大卡。一日三餐螺蛳粉，每份螺蛳粉800大卡，2400卡-1900卡，每日富余500卡，近8天长一斤肉。</p>
+<p>某白领女，25岁，身高165cm，体重100斤，基础代谢1250大卡，日常办公室活动300卡，每天跑5公里300卡，每日消耗1850卡。一日三餐减脂餐，每份350卡，1850卡-1050卡，每日亏空800卡，每5天掉一斤肉。</p>
+<p>减肥应采用全局减脂，局部减脂效果甚微，例如做仰卧起坐，会把腹肌练大，但表面脂肪不减，肚子更大。在减重时，先掉哪里的脂肪，不由大脑决定，由身体根据基因统一调配，一般先减掉脸、脖子、手臂的脂肪，最后再动用腹部脂肪，当人类还是原始人的时候，还没发明衣服，腹部脂肪（含内脏脂肪），是保证内脏核心温度的保命法宝，不到饥荒紧要关头，不拿出来用。女性因为受雌激素影响，大腿脂肪也比较难减。</p>
+<p>——————————————————</p>
+<p>下面举几个普通人的案例，来看看他们在生活中犯了哪些加快衰老的错误——</p>
+<p>案例1：</p>
+<p>大壮，男，28岁，身高178。大壮是混迹于健身房的肌肉男，因为鸡蛋比牛肉便宜，一天吃十几个全蛋补充蛋白质（胆固醇超标，血管老化），他还会额外补充一些BCCA支链氨基酸，用于激活mtor更好的增肌（mtor加速衰老）。他在撸铁前，会吃两根香蕉补充快碳（快碳伤害胰岛），然后疯狂撸铁，他每次都练一个小时以上（皮质醇升高加速衰老），练后喝一小瓶葡萄糖（劣质快碳），吃一点增肌粉（蛋白质+快碳），再吃好几片白吐司（快碳）。他想明年去打比赛，为了更好增肌，他服用十几种补剂，包括肌酸、睾酮、氮泵等（过量加速衰老），还偷偷服用雄性类固醇（禁药）。他每天摄入蛋白质高达体重×4克（每天都在激活mtor）。他身体强壮免疫力强，女朋友很喜欢，每晚找他要，他每晚都给两次（纵欲加速衰老）。</p>
+<p>点评：大壮做了很多加速衰老的事，但他自认为食材干净、营养丰富、天天锻炼，自己会比别人老的慢。当然大壮的生活模式并非一无是处，他的饮食完全受控，避免摄入各类垃圾食品，锻炼和睡眠也非常规律。他的问题主要是摄入了过量蛋白质和快碳，蛋黄也吃多了，并且为了训练效果，吃了一些引发衰老和破坏内分泌的补剂。如果降低蛋白质和碳水到合理水平，停止服用促进雄性功能的补剂，那他的生活会很健康。但这样会大大降低他的增肌效果，变为自然派，被药物派吊打，无缘比赛，这是他不能接受的。</p>
+<p>案例2：</p>
+<p>小美，女，26岁，身高165。小美是一名舞蹈老师，为了身材，每天早上7点起床跑5公里（过度有氧加速衰老，伤膝盖）。每天要喝两杯奶茶（糖化反应，加速衰老，影响颜值），一块蛋糕店的提拉米苏（反式脂肪，糖）。小美每天都吃大量甜水果（果糖伤肝），还特别喜欢吃榴莲（糖分很高、热量炸弹）。小美喝蜂蜜柚子茶（果糖）和酸奶（添加糖）。小美嫌公司食堂不好吃，经常点外卖（食材品质不受控），特别喜欢点韩国炸鸡、可乐、汉堡（高油高糖，油炸反式脂肪）。她下班后，化浓妆（伤害脸部皮肤）和朋友去酒吧喝酒（酒精一类致癌物），酒吧内烟雾弥漫（二手烟一类致癌物）。回家后和朋友玩吃鸡，一直玩到12点都不睡觉（熬夜加速衰老，睡眠时间也不足）。小美五一长假出去旅游，夏天户外不打伞也不涂防晒霜（紫外线引起皮肤衰老），在旅途中吃了很多当地特色美食（食材品质不受控），回来吃胖了5斤（激发mtor），因为工作需要，又减肥了5斤（体重忽上忽下，影响健康）。她对化妆品的投入花费远远超过护肤品（搞反了）。</p>
+<p>点评：小美是一个普通的职场女性，做了很多引发衰老的事，但她并未意识到。她的主要问题是摄入了很多高GI的碳水，包括直接摄入糖。也摄入很多反式脂肪。她需要重视抗糖，有氧运动也过量了，最好减量或者两天跑一次，同时补充抗氧化剂。她对颜值的保养还缺乏经验，没有引起足够的重视。</p>
+<p>案例3：</p>
+<p>小明，男，32岁，身高172，985高校研究生毕业，IT男，互联网知名大厂上班。作为码农，小明经常加班，睡的很晚（晚睡加速衰老），有时候凌晨一点还在写程序（雄性激素旺盛），小明越来越脱发（脂溢性脱发）。熬夜写程序的时候，他一边抽烟（一类致癌物），一边喝可乐（直接摄入糖）。小明平时很少锻炼身体，有点微胖（炎症），有点小肚子（内脏脂肪高），体检时有轻微三高和轻度脂肪肝（循环系统和内脏加速衰老）。有时候项目压力大，小明感到十分焦虑（皮质醇升高）。小明周末喜欢和朋友去外面聚餐，摄入很多高钠糖油混合物（高钠，劣质脂肪，劣质碳水，热量超标），聚餐时会喝一点酒（酒精一类致癌物）。</p>
+<p>点评：小明是一个普通的职场男性，做了很多引发衰老的事，而且完全不抗衰。他身体处于亚健康状态。他的问题很多，比如吃东西完全不忌口，摄入了很多高钠、糖油混合物、反式脂肪，还直接摄入糖。他抽烟喝酒，不锻炼身体。除非他有长寿基因，否则注定只能活普通人的平均寿命，等他到退休年龄，等待他的可能是心血管疾病、糖尿病、脂肪肝等，而且癌症发病率也不低。</p>
+<p>——————————————————</p>
+<h2 id="重疾早筛非常重要"><a class="header" href="#重疾早筛非常重要">重疾早筛：非常重要</a></h2>
+<p>对于长寿，重疾的早筛和抗衰老一样重要，十大癌症中，除了胰腺癌外，其他都可以早期发现，消灭在萌芽阶段，不会拖到晚期致命。</p>
+<p>1.肺癌：戒烟，避免炒菜油烟，胸部CT，每年一次</p>
+<p>2.肠癌：无痛胃肠镜，三年一次</p>
+<p>3.胃癌：无痛胃肠镜，三年一次</p>
+<p>4.乳腺癌：女性癌症发病率第一，40岁以下彩超，40岁以上加做钼靶，便宜，每年一次，此病致死率低</p>
+<p>5.肝癌：彩超和抽血（甲胎蛋白），每年一次，乙肝患者，半年一次</p>
+<p>6.食管癌：无痛胃肠镜，三年一次</p>
+<p>7.甲状腺癌：彩超，此病致死率低，每年一次</p>
+<p>8.胰腺癌：难以检查，此病致死率极高，得此病只能怪自己点儿背</p>
+<p>9.前列腺癌：抽血查PSA，此病致死率低，每年一次</p>
+<p>10.宫颈癌： TCP加HPV，每年一次</p>
+<p>注意：消化道疾病及癌症与幽门螺旋杆菌高度相关，中国人感染率55%，最好到医院做根除治疗，治疗后一年复发率5%，3%为没杀干净，2%为再次被传染，95%成功率值得一做。肠道益生菌良好时会压制幽门螺旋杆菌，益生菌失调时幽门螺旋杆菌会出来做恶。</p>
+<p>——————————————————</p>
+<p>对几种抗衰老神药的看法：</p>
+<ol start="24">
+<li>雷帕霉素，通过抑制mTOR达到抗衰老效果，小白鼠延寿%，本来是杀真菌药物，有免疫抑制效果，也用做器官移植的抗排斥药物，因为能抑制癌细胞mTOR，也用做部分癌症的辅助用药。</li>
+<li>二甲双胍，糖尿病人的降糖药，可激发AMPK。</li>
+<li>亚精胺，让身体更好地细胞自噬。小麦胚芽中含量较高。</li>
+<li>阿卡波糖，糖尿病人用药，同二甲双胍。</li>
+</ol>
+<p>以上药物，我一个都没吃。</p>
+<p>——————————————————</p>
+<p>附：中国居民死亡原因排名前25名</p>
+<p>1.中风</p>
+<p>2.缺血性心脏病</p>
+<p>3.肺癌</p>
+<p>4.慢性阻塞性肺病</p>
+<p>5.肝癌</p>
+<p>6.交通事故</p>
+<p>7.胃癌</p>
+<p>8.痴呆</p>
+<p>9.新生儿疾病</p>
+<p>10.高血压性心脏病</p>
+<p>11.食管癌</p>
+<p>12.肺炎</p>
+<p>13.自杀</p>
+<p>14.肝硬化</p>
+<p>15.大肠癌</p>
+<p>16.慢性肾病</p>
+<p>17.先天性疾病</p>
+<p>18.坠亡</p>
+<p>19.溺亡</p>
+<p>20.糖尿病</p>
+<p>21.乳腺癌</p>
+<p>22.白血病</p>
+<p>23.脑瘤</p>
+<p>24.胰腺癌</p>
+<p>25.其他恶性肿瘤</p>
+<h1 id="附录二看完bbc纪录片如何延缓衰老发现花在脸上的钱都白瞎了"><a class="header" href="#附录二看完bbc纪录片如何延缓衰老发现花在脸上的钱都白瞎了">附录二看完BBC纪录片《如何延缓衰老》，发现花在脸上的钱都白瞎了</a></h1>
+<p><strong>Author:</strong> [通宵达旦]</p>
+<p><strong>Link:</strong> <a href="https://zhuanlan.zhihu.com/p/87624381">https://zhuanlan.zhihu.com/p/87624381</a></p>
+<p>文/蒲笑</p>
+<p>变老？单单这两个词，就让很多人避之不及。</p>
+<p>在这个“颜值即正义”的时代，抗衰老和防皱纹是很多仙女们日常讨论的话题。</p>
+<p>护肤水、精华液、面膜更是成为了生活的必需品。</p>
+<p>诸多医美项目也成为很多女孩们攒钱奋斗的动力。</p>
+<p>为什么在同样的年龄，有的人比同龄人年轻10岁，有的人外表却看上去老很多？</p>
+<p>想保持青春，真的需要花大把钱，甚至在脸上动刀么？</p>
+<p><strong>实际上，用对了方法，让你比同龄人年轻根本就不难！</strong></p>
+<p>BBC纪录片《如何延缓衰老》，用超科学的实验依据来告诉我们，怎样做才能够延缓衰老？</p>
+<p>不得不说，这个纪录片简直就是护肤小仙女们的福音。</p>
+<p>很多时候，我们都可以看到一些护肤小妙招，延缓衰老小妙招。</p>
+<p><strong>但我们从来没想过，为什么我们的皮肤会日渐衰老？</strong></p>
+<p>这一次BBC纪录片《如何延缓衰老》用研究告诉你答案。</p>
+<p>此次纪录片的主角是整形外科的医生罗津娜。</p>
+<p>罗津娜日常的工作与皮肤相关，与很多小伙伴一样，她想了解皮肤逐渐衰老的底层原因，进而针对性地对皮肤衰老给出解决方案。</p>
+<p><img src="https://picx.zhimg.com/v2-adb998083b2ab7057c8772d54cb7e8ab_1440w.jpg" alt="Image" /></p>
+<p>罗津娜离开了自己熟悉的手术室，前往实验室了解先进的皮肤科学。</p>
+<p>《如何延缓衰老》的开片就给了我们一个意外且笃定的结论：<strong>长皱纹最大的元凶是因为太阳光。</strong></p>
+<p><img src="https://picx.zhimg.com/v2-28b0d7c88fcf9108b2ae613202a3d99d_1440w.jpg" alt="Image" /></p>
+<p><strong>为什么晒太阳会变老？</strong></p>
+<p>纪录片告诉了我们答案：</p>
+<p>阳光的射线会破坏我们皮肤的胶原蛋白，而皮肤产生皱纹正是因为胶原蛋白开始萎缩。</p>
+<p><img src="https://pic2.zhimg.com/v2-ac3056bb03317dfcc712ba0c8d4502cf_1440w.jpg" alt="Image" /></p>
+<p>当然啦，直接给皱纹下定义，好像不够有说服力。</p>
+<p>“用事实说话”才是BBC纪录片一贯的理论派style。</p>
+<p>罗津娜与科学家决定把长期开车的货车司机当作研究对象。</p>
+<p>“晒太阳到底会不会长皱纹”，答案呼之欲出。</p>
+<p>司机先生在专门仪器的照射下进行了检测。</p>
+<p>皱纹在仪器的检测加工下，肉眼可见的是司机左右两边脸的皱纹密度和深度明显不一样！</p>
+<p>按理来说，就算长皱纹，两侧脸颊也不应该会有太大的差异性。</p>
+<p>可为什么司机先生两侧的脸有明显不一样的检测结果呢？</p>
+<p>答案和我们前面的结论相吻合：</p>
+<p>因为工作环境的特殊性，司机们的一边脸比另一边脸更长时间的暴露在日头下。</p>
+<p>司机在驾驶座上，被挡风玻璃保护，玻璃直接隔绝了身为短波紫外线的UVB，货车司机的皮肤不会因为坐在车内就被晒伤。</p>
+<p><img src="https://pic4.zhimg.com/v2-a714a40445cb5b64ecb04be8d8e38c0d_1440w.jpg" alt="Image" /></p>
+<p><img src="https://pica.zhimg.com/v2-2b49eb723642cbd5981e13796ee391d8_1440w.jpg" alt="Image" /></p>
+<p>可长波紫外线却是无孔不入，简单的玻璃想要抵制它可没那么容易。</p>
+<p>UVA有更长的波长，能够穿透玻璃，深入皮肤，最终弱化胶原蛋白，导致皱纹。</p>
+<p><img src="https://pica.zhimg.com/v2-ee037ce2ed08be7e880089f22e5663dc_1440w.jpg" alt="Image" /></p>
+<p>“晒太阳果然会变老”，看完这些，方才明白原来阳光不是那么好“晒”的。</p>
+<p><strong>这里，我们可以直接得出结论，有没有皱纹跟是否做防晒有很大的关系。</strong></p>
+<p>哪怕你在室内，也会受到UVA的“骚扰”，更何况是室外呢？</p>
+<p>所以不管是白天阴天还是车内车外，我们都需要涂一下防晒。</p>
+<p>在购买防晒霜时，不仅要查看防晒系数，还要注意UVA的评级，五星级能够最大程度的防止阳光导致的老化。</p>
+<p><img src="https://pic4.zhimg.com/v2-211065d0a879513d2218e3a1a4abe9ad_1440w.jpg" alt="Image" /></p>
+<p>除了防晒，我们还应该注意什么？</p>
+<p>我们继续跟着罗津娜探索“防止皮肤衰老的秘密”。</p>
+<p>对护肤有一点了解的人，对胶原蛋白这个名词不会陌生。</p>
+<p>形容一个人年轻，往往都会说：“她脸上真是满满的胶原蛋白”。</p>
+<p>相对应而言，年纪大一点，整个皮肤看起来都比较干瘪，这也是因为胶原蛋白不足的缘故。</p>
+<p>BBC中没有过多说明胶原蛋白，而是跟我们介绍了一种细胞：纤维母细胞。</p>
+<p><strong>千万不要小瞧这个细胞，它可是胶原蛋白的制造机。</strong></p>
+<p><img src="https://pic3.zhimg.com/v2-b3655a5e436b4f7115cb1d3b567b89ee_1440w.jpg" alt="Image" /></p>
+<p>有了它，还愁你的胶原蛋白不够多么？</p>
+<p>可纤维母细胞没有你想象的那么“坚强”。</p>
+<p>我们人体生存需要氧气，这个专业知识恐怕没人不知道，可是少为人知的是，有1%-2%的氧气并没有直接被人体循环，而是形成了自由基。</p>
+<p><img src="https://pic1.zhimg.com/v2-ff7c9993c1dff7d5d91d362ee8e5da26_1440w.jpg" alt="Image" /></p>
+<p>自由基的累积效应与人体本身的防御机制抗衡。</p>
+<p>自由基缓慢而压倒性地战胜人体的防御机制，会造成人体衰老，直接性的损害能产生胶原蛋白的纤维母细胞。</p>
+<p>新的讨论点近在咫尺，修复受损的纤维母细胞，我们可以做些什么？</p>
+<p>BBC《如何减缓衰老》，干脆利落地给了我们解决问题的部分答案：<strong>饮食。</strong></p>
+<p><img src="https://pic3.zhimg.com/v2-9bc3e65b5da24be96e558fdfde1bc71a_1440w.jpg" alt="Image" /></p>
+<p>民以食为天，我们到底应该吃什么？</p>
+<p><a href="https://jinshuju.net/f/6Km7if">https://jinshuju.net/f/6Km7if</a></p>
+<p>长生不老丹？BBC自然不会给出如此没脑子的答案。</p>
+<p>纪录片《如何延缓衰老》直接带我们梳理下，什么该吃，什么不该吃。</p>
+<h2 id="第一项是颜色鲜艳的食物"><a class="header" href="#第一项是颜色鲜艳的食物">第一项是：颜色鲜艳的食物。</a></h2>
+<p><strong>在BBC纪录片中，代表性的事物是番茄。</strong></p>
+<p><img src="https://pica.zhimg.com/v2-7fb00865c2212def16c20aba114cf38e_1440w.jpg" alt="Image" /></p>
+<p>番茄颜色鲜艳的主要原因是因为它有一种特殊的成分：茄红素。</p>
+<p>茄红素能够良好的吸收氧化和防止氧化应激反应，有着良好的修复纤维母细胞的效果</p>
+<h2 id="第二项是苦味的蔬菜"><a class="header" href="#第二项是苦味的蔬菜">第二项是：苦味的蔬菜。</a></h2>
+<p><img src="https://pic3.zhimg.com/v2-27042cf3167af82c35efedf3e5d108d4_1440w.jpg" alt="Image" /></p>
+<p>可能有的小伙伴会纠结：生活已经够苦了，为啥不能来点甜。</p>
+<p>BBC在这里列举的蔬菜，其实算不上苦，反而是健身人士经常纳入菜谱的一个健康蔬菜：西兰花、小红萝卜。</p>
+<p>它们含有一种叫芥子油苷的成分，是天然抗衰老、抗氧化的物质。</p>
+<p>人体摄入这种成分后，芥子油苷会储存在皮肤中，使皮肤有了自我保护能力。</p>
+<h2 id="第三项是鱼类"><a class="header" href="#第三项是鱼类">第三项是：鱼类。</a></h2>
+<p><img src="https://pic1.zhimg.com/v2-4c76f53aa4df086294a0ab5d41fe2a04_1440w.jpg" alt="Image" /></p>
+<p>通过食用大量富含油脂的鱼可以达到抗衰老的目的。</p>
+<p>鱼类含有一种特殊的物质：欧米加3脂肪酸。</p>
+<p>有的鱼甚至可以有消炎的功效，炎症会导致皮肤的氧化应激反应，而鱼类特有的物质可以消除皮肤细胞里的炎症，自然对抗衰老有益。</p>
+<p>前面三项都是推荐大家食用的食物。</p>
+<h2 id="第四项就是让大家规避的食物"><a class="header" href="#第四项就是让大家规避的食物">第四项就是让大家规避的食物：</a></h2>
+<p><strong>淀粉类的食物，比如土豆、大米、意大利面。</strong></p>
+<p><img src="https://pic3.zhimg.com/v2-21247c10007b38d5b97b5027503e42a2_1440w.jpg" alt="Image" /></p>
+<p>《如何延缓衰老》中研究的最后一项是否会导致衰老的物质。</p>
+<p><strong>你绝对想不到：糖。</strong></p>
+<p><img src="https://picx.zhimg.com/v2-ba6372f0a440dfa5619d1058fd7dcc13_1440w.jpg" alt="Image" /></p>
+<p>喜欢点奶茶、吃甜品的小仙女，日常的糖摄入量自然高于平均摄入水平。<a href="https://jinshuju.net/f/6Km7if">https://jinshuju.net/f/6Km7if</a></p>
+<p><strong>可BBC研究表明：糖摄入量也决定了皮肤的衰老情况。</strong></p>
+<p>最为明显的是：当糖尿病患者经志愿者通过样貌猜测选项、匹配年龄。</p>
+<p>结论是糖尿病患者普遍比同龄人看上去显老。</p>
+<p>后来，研究直接测试血糖和皮肤之间的关系，结果发现血糖和外观年龄的关联非常显著。</p>
+<p><img src="https://pica.zhimg.com/v2-52cb798ae1c7de8eccf3f0cdba501966_1440w.jpg" alt="Image" /></p>
+<p>试验肯定了结论：血糖高的比血糖低的显老。</p>
+<p>为此我们的纪录片主角也亲自去测试了一下自己的血糖量。</p>
+<p>罗津娜在数百位调研员所统计出来的数据显示：她比同龄人年轻十岁。</p>
+<p>再检测她体内的血糖含量，结果是处于低血糖水平。</p>
+<p><img src="https://pic3.zhimg.com/v2-57b8d7af1ee25fae6c730afc82643940_1440w.gif" alt="Image" /></p>
+<p>看了这些实验检测数据，不得不感慨：原来糖也是岁月的敌人。</p>
+<p>戒糖行动得提上日程了……</p>
+<p>几大项说完，纪录片也接近尾声，与时间对抗，做如下总结：</p>
+<p><strong>1、要注意防晒</strong></p>
+<p><strong>2、多吃颜色鲜艳的食物以及富含脂肪的鱼类，还有西兰花那种带苦味的食物。</strong></p>
+<p><strong>3、减少淀粉的摄入</strong></p>
+<p><strong>4、最重要的是戒糖。</strong></p>
+<p>BBC的《如何延缓衰老》的记录片用科学严谨的实验，得出解决方案，实打实地教会我们如何让岁月来得慢一些。</p>
+<p>想要延缓衰老，保持青春，等待大家伙儿还有一场名为”自律”的硬仗！<strong>如果有痘痘、痘印、毛孔粗大 、黑头、斑点、敏感、红血丝等等之类的皮肤问题，可以随时咨询 。建议朋友可以测试一下自己的皮肤问题，我们的肌肤管理导师会 根据你的皮肤情况作出针对性的改善方案发送给您，现在开始测试吧：</strong></p>
+<p><a href="https://jinshuju.net/f/6Km7if">皮肤健康美容免费测试表</a></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../长寿/《可不可以不变老》.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../休憩/休憩.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../长寿/《可不可以不变老》.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../休憩/休憩.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
